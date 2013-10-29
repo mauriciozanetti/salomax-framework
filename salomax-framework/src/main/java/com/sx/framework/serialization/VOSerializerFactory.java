@@ -18,37 +18,31 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.entity;
+package com.sx.framework.serialization;
 
-import com.sx.framework.vo.ValueObject;
+import com.sx.framework.serialization.imp.JSONVOSerializerImp;
 
 /**
- * Defautl entity.
+ * Factory pattern to Value Object Serialization.
  * 
  * @author marcos.salomao
  */
-public abstract class OfyEntity extends ValueObject implements Entity<Long> {
+public class VOSerializerFactory {
+	
+	/**
+	 * Singleton pattern.
+	 */
+	private static VOSerializer voSerializer;
 
 	/**
-	 * Id.
+	 * Create a new instance of Value Object serializer.
+	 * @return instance of Value Object serializer
 	 */
-	//TODO ofy
-	private Long id;
-	
-	/**
-	 * Returns entity id.
-	 * @return Id
-	 */
-	public Long getId() {
-		return id;
-	}
-	
-	/**
-	 * Set entity id.
-	 * @param id entity id
-	 */
-	public void setId(Long id) {
-		this.id = id;
+	public static VOSerializer getInstance() {
+		if (voSerializer == null) {
+			voSerializer = new JSONVOSerializerImp();
+		}
+		return voSerializer;
 	}
 
 }

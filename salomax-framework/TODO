@@ -1,4 +1,5 @@
 OK	Logging
+OK	VO Serialization
 	Persistence NoSQL (Objectify)
 	IoD (Spring core)
 	Transactions (Appengine/Objectify)

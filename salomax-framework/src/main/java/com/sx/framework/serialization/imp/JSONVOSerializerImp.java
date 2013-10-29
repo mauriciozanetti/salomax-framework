@@ -18,37 +18,40 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.entity;
+package com.sx.framework.serialization.imp;
 
+import com.sx.framework.serialization.VOSerializer;
 import com.sx.framework.vo.ValueObject;
 
+import flexjson.JSONSerializer;
+
 /**
- * Defautl entity.
+ * JSON pattern implementation to VO Serialization.
  * 
  * @author marcos.salomao
  */
-public abstract class OfyEntity extends ValueObject implements Entity<Long> {
+public class JSONVOSerializerImp implements VOSerializer {
 
 	/**
-	 * Id.
+	 * JSON Serializer implementation.
 	 */
-	//TODO ofy
-	private Long id;
+	private JSONSerializer jsonSerializer;
 	
 	/**
-	 * Returns entity id.
-	 * @return Id
+	 * Default constructor.
 	 */
-	public Long getId() {
-		return id;
+	public JSONVOSerializerImp() {
+		jsonSerializer = new JSONSerializer();
+		jsonSerializer.prettyPrint(true);
 	}
 	
 	/**
-	 * Set entity id.
-	 * @param id entity id
+	 * Serializes a value object.
+	 * @param target value object to serializes
+	 * @return value object serialized
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public String serialize(ValueObject target) {
+		return jsonSerializer.serialize(target);
 	}
 
 }
