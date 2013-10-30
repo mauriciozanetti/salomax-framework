@@ -33,6 +33,20 @@ import com.sx.framework.entity.Entity;
  * @author marcos.salomao
  */
 public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
+	
+	/**
+	 * Generic type class.
+	 */
+	private Class<T> genericType;
+	
+	/**
+	 * Default constructor needs past the <code>Class<T></code>
+	 * 
+	 * @param genericType generic type class
+	 */
+	public GenericOfyEntityDAO(Class<T> genericType) {
+		setGenericType(genericType);
+	}
 
 	/**
 	 * Save a entity.
@@ -67,9 +81,22 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	 * @return list of entities
 	 */
 	public List<T> list() {
-		// TODO implements method
-		//List<T> list = ofy().load().type(T);
-		return null;
+		List<T> list = ofy().load().type(getGenericType()).list();
+		return list;
+	}
+
+	/**
+	 * @param genericType the genericType to set
+	 */
+	public void setGenericType(Class<T> genericType) {
+		this.genericType = genericType;
+	}
+	
+	/**
+	 * @return the genericType
+	 */
+	public Class<T> getGenericType() {
+		return genericType;
 	}
 	
 }

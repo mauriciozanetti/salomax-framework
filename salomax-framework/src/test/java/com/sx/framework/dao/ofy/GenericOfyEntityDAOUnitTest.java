@@ -20,9 +20,12 @@
  */
 package com.sx.framework.dao.ofy;
 
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
@@ -48,24 +51,42 @@ public class GenericOfyEntityDAOUnitTest {
 	 * Logger.
 	 */
 	private final static Logger LOGGER = LoggerFactory.getLogger(GenericOfyEntityDAOUnitTest.class);
-
+	
 	/**
-	 * Test Logger Factory
+	 * Thing entity test.
 	 */
-	@Test
-	public void testGenericOfyEntiyDAO() {
-		
+	private static Thing thing;
+	
+	/**
+	 * Before test.
+	 */
+	@Before
+	public void beforeTest() {
+	
 		LOGGER.info("Testing generic ofy entity dao");
 		
 		helper.setUp();
+
 		
-		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>();
+		if (thing == null) {
+			thing = new Thing();
+
+			Integer value = new Random().nextInt(1000);
+			thing.setValue(value);
+		}
+	
+	}
+	
+	/**
+	 * Test save thing.
+	 */
+	@Test
+	public void testSaveThing() {
 		
-		Integer value = new Random().nextInt(1000);
+		LOGGER.info("Saving Thing entity");
 		
-		Thing thing = new Thing();
-		thing.setValue(value);
-		
+		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+
 		thing = dao.save(thing);
 		
 		assert(thing != null);
@@ -74,10 +95,75 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		LOGGER.info(thing.toString());
 		
-		helper.tearDown();
+	}
+	
+
+	/**
+	 * Test load thing.
+	 */
+	@Test
+	public void testLoadThing() {
+
+		assert(thing != null);
+
+		LOGGER.info("Loading Thing entity");
+
+		Integer compareValue = thing.getValue();
+
+		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+		
+		thing = dao.load(thing);
+		
+		assert(thing != null);
+		
+		assert(thing.getValue().equals(compareValue));
+
+	}
+	
+	/**
+	 * Test list things.
+	 */
+	@Test
+	public void testListThing() {
+		
+		LOGGER.info("Listing Thing entity");
+		
+		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+
+		List<Thing> list = dao.list();
+		
+		assert(list.size() == 1);
+		
+	}
+	
+	/**
+	 * Test delete things.
+	 */
+	@Test
+	public void testDeleteThing() {
+		
+		LOGGER.info("Delete Thing entity");
+		
+		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+		
+		dao.delete(thing);
+		
+		List<Thing> list = dao.list();
+		
+		list = dao.list();
+		
+		assert(list.size() == 0);
 		
 		LOGGER.info("Generic ofy entity dao successful");
 		
+	}
+	
+	/**
+	 * After test.
+	 */
+	@After
+	public void afterTest() {
+		helper.tearDown();
 	}
 
 }
