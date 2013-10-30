@@ -18,9 +18,9 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.entity.ofy;
+package com.sx.framework.dao.ofy;
 
-import com.sx.framework.dao.ofy.GenericOfyEntityDAO;
+import com.sx.framework.entity.ofy.OfyEntity;
 
 /**
  * Objectify implementation for entity DAO pattern.
