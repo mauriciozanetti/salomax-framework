@@ -3,5 +3,7 @@ OK	VO Serialization
 OK	Persistence NoSQL (Objectify)
 	IoD (Spring core)
 	Transactions (Appengine/Objectify)
+	Service Bean (EJB like)
+	Interception
 	Spring MVC
-	Design Patterns
+	Others Design Patterns

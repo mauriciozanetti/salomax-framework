@@ -141,6 +141,8 @@ public class GenericOfyEntityDAOUnitTest {
 
 		List<Thing> list = dao.list();
 		
+		assert(list != null);
+		
 		assert(list.size() == 1);
 		
 	}
