@@ -20,11 +20,12 @@
  */
 package com.sx.framework.entity.ofy;
 
+import com.googlecode.objectify.annotation.Id;
 import com.sx.framework.entity.Entity;
 import com.sx.framework.vo.ValueObject;
 
 /**
- * Defautl entity.
+ * Defautl ofy entity mapping.
  * 
  * @author marcos.salomao
  */
@@ -33,7 +34,7 @@ public abstract class OfyEntity extends ValueObject implements Entity<Long> {
 	/**
 	 * Id.
 	 */
-	//TODO ofy
+	@Id
 	private Long id;
 	
 	/**

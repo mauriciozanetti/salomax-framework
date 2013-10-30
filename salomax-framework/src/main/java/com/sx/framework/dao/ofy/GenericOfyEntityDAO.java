@@ -27,12 +27,14 @@ import com.sx.framework.dao.EntityDAO;
 import com.sx.framework.entity.Entity;
 import com.sx.framework.logging.LoggerFactory;
 
+import static com.sx.framework.dao.ofy.OfyHelper.ofy;
+
 /**
  * Objectify implementation for generic entity DAO pattern.
  * 
  * @author marcos.salomao
  */
-public abstract class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
+public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 
 	/**
 	 * Logger.
@@ -44,9 +46,9 @@ public abstract class GenericOfyEntityDAO<T extends Entity<?>> implements Entity
 	 * @param entity entity
 	 * @return returns a entity saved
 	 */
+	@SuppressWarnings("unchecked")
 	public T save(T entity) {
-		//TODO implements method
-		return null;
+		return (T) ofy().save().entity(entity).now();
 	}
 
 	/**

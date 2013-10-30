@@ -18,43 +18,32 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.dao.ofy;
-
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.ObjectifyFactory;
-import com.googlecode.objectify.ObjectifyService;
-import com.sx.framework.entity.ofy.Thing;
+package com.sx.framework.entity.ofy;
 
 /**
- * Objectify helper.
+ * Ofy Entity for test.
  * 
  * @author salomax
  */
-public class OfyHelper {
+public class Thing extends OfyEntity {
 	
 	/**
-	 * Static block to register basic ofy entities.
+	 * Value.
 	 */
-	static {
-        factory().register(Thing.class);
-    }
+	private Integer value;
 
 	/**
-	 * Return Objectify instance.
-	 * 
-	 * @return Objectify instance
+	 * @return the value
 	 */
-    public static Objectify ofy() {
-        return ObjectifyService.ofy();
-    }
+	public Integer getValue() {
+		return value;
+	}
 
 	/**
-	 * Return Objectify factory instance.
-	 * 
-	 * @return Objectify factory instance
+	 * @param value the value to set
 	 */
-    public static ObjectifyFactory factory() {
-        return ObjectifyService.factory();
-    }
+	public void setValue(Integer value) {
+		this.value = value;
+	}
 
 }

@@ -26,6 +26,16 @@
 		<artifactId>objectify</artifactId>
 		<version>4.0rc1</version>
 	</dependency>
+	<dependency>
+		<groupId>com.google.appengine</groupId>
+		<artifactId>appengine-testing</artifactId>
+		<version>1.7.6</version>
+	</dependency>
+	<dependency>
+		<groupId>com.google.appengine</groupId>
+		<artifactId>appengine-api-stubs</artifactId>
+		<version>1.7.6</version>
+	</dependency>
   </dependencies>
   
 </project>
