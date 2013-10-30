@@ -50,8 +50,8 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	 * @return returns a entity
 	 */
 	public T load(T entity) {
-		//TODO implements method
-		return null;
+		entity = ofy().load().entity(entity).now();
+		return entity;
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	 * @param entity entity
 	 */
 	public void delete(T entity) {
-		//TODO implements method
+		ofy().delete().entity(entity).now();
 	}
 
 	/**
@@ -67,7 +67,8 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	 * @return list of entities
 	 */
 	public List<T> list() {
-		//TODO implements method
+		// TODO implements method
+		//List<T> list = ofy().load().type(T);
 		return null;
 	}
 	
