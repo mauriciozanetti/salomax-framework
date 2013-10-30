@@ -70,6 +70,8 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		assert(thing != null);
 		
+		assert(thing.getId() != null && thing.getId() > 0);
+		
 		LOGGER.info(thing.toString());
 		
 		helper.tearDown();

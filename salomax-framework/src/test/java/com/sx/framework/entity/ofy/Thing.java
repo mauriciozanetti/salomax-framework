@@ -20,11 +20,14 @@
  */
 package com.sx.framework.entity.ofy;
 
+import com.googlecode.objectify.annotation.Entity;
+
 /**
  * Ofy Entity for test.
  * 
  * @author salomax
  */
+@Entity
 public class Thing extends OfyEntity {
 	
 	/**
