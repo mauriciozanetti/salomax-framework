@@ -24,7 +24,9 @@ import static com.sx.framework.dao.ofy.OfyHelper.ofy;
 
 import java.util.List;
 
+import com.googlecode.objectify.cmd.Query;
 import com.sx.framework.dao.EntityDAO;
+import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.Entity;
 
 /**
@@ -51,7 +53,7 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	/**
 	 * Save a entity.
 	 * @param entity entity
-	 * @return returns a entity saved
+	 * @return returns a entity <T> saved
 	 */
 	public T save(T entity) {
 		ofy().save().entity(entity).now();
@@ -61,7 +63,7 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	/**
 	 * Load a entity from your id.
 	 * @param entity entity
-	 * @return returns a entity
+	 * @return returns a entity <T>
 	 */
 	public T load(T entity) {
 		entity = ofy().load().entity(entity).now();
@@ -70,18 +72,35 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	
 	/**
 	 * Delete a entity from your id.
-	 * @param entity entity
+	 * @param entity entity <T>
 	 */
 	public void delete(T entity) {
 		ofy().delete().entity(entity).now();
 	}
 
 	/**
-	 * List entities saved.
-	 * @return list of entities
+	 * List entities <T>.
+	 * @return list of entities <T>
 	 */
 	public List<T> list() {
 		List<T> list = ofy().load().type(getGenericType()).list();
+		return list;
+	}
+	
+	/**
+	 * Filter list.
+	 * 
+	 * @return filtered list of entities <T>
+	 */
+	public List<T> filter(Filter... filters) {
+		Query<T> query = ofy().load().type(getGenericType());
+		
+		for (Filter filter : filters) {
+			query.filter(filter.getKey(), filter.getValue());
+		}
+		
+		List<T> list = query.list();
+				
 		return list;
 	}
 

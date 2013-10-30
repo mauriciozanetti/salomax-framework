@@ -22,6 +22,7 @@ package com.sx.framework.dao;
 
 import java.util.List;
 
+import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.Entity;
 
 /**
@@ -56,5 +57,12 @@ public interface EntityDAO<T extends Entity<?>> extends DAO {
 	 * @return list of entities
 	 */
 	List<T> list();
+	
+	/**
+	 * Filter list.
+	 * 
+	 * @return filtered list of entities <T>
+	 */
+	List<T> filter(Filter... filters);
 
 }

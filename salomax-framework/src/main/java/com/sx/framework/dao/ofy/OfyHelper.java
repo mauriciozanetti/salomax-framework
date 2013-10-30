@@ -23,7 +23,6 @@ package com.sx.framework.dao.ofy;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
-import com.sx.framework.entity.ofy.Thing;
 
 /**
  * Objectify helper.
@@ -36,8 +35,14 @@ public class OfyHelper {
 	 * Static block to register basic ofy entities.
 	 */
 	static {
-        factory().register(Thing.class);
     }
+	
+	/**
+	 * Register entity.
+	 */
+	public static void register(Class<?> e) {
+        factory().register(e);
+	}
 
 	/**
 	 * Return Objectify instance.

@@ -31,6 +31,7 @@ import org.junit.Test;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.sx.framework.dao.EntityDAO;
+import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;
 
@@ -42,20 +43,28 @@ import com.sx.framework.logging.LoggerFactory;
 public class GenericOfyEntityDAOUnitTest {
 	
 	/**
-	 * LocalServiceTestHelper.
-	 */
-	private final LocalServiceTestHelper helper =
-		    new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-	
-	/**
 	 * Logger.
 	 */
 	private final static Logger LOGGER = LoggerFactory.getLogger(GenericOfyEntityDAOUnitTest.class);
 	
 	/**
+	 * LocalServiceTestHelper.
+	 */
+	private final LocalServiceTestHelper helper =
+		    new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	
+
+	/**
 	 * Thing entity test.
 	 */
 	private static Thing thing;
+	
+	/**
+	 * Static block to register.
+	 */
+	static {
+		OfyHelper.register(Thing.class);
+	}
 	
 	/**
 	 * Before test.
@@ -131,6 +140,28 @@ public class GenericOfyEntityDAOUnitTest {
 		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
 
 		List<Thing> list = dao.list();
+		
+		assert(list.size() == 1);
+		
+	}
+	
+	/**
+	 * Test list things.
+	 */
+	@Test
+	public void testFilterThing() {
+		
+		LOGGER.info("Filtering Thing entity");
+		
+		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+
+		Integer compareValue = thing.getValue();
+		
+		Filter filter = new Filter();
+		filter.setLeft("value");
+		filter.setRight(compareValue);
+		
+		List<Thing> list = dao.filter(filter, filter);
 		
 		assert(list.size() == 1);
 		

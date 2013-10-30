@@ -22,6 +22,7 @@ package com.sx.framework.service;
 
 import java.util.List;
 
+import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.Entity;
 
 /**
@@ -56,5 +57,11 @@ public interface EntityService<T extends Entity<?>> extends Service {
 	 * @return list of entities
 	 */
 	List<T> list();
+	
+	/**
+	 * Filter list entities <T>.
+	 * @return list of entities <T> filtered
+	 */
+	List<T> filter(Filter... filters);
 
 }
