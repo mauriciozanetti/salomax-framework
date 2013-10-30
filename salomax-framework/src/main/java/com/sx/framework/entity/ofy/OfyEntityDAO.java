@@ -18,22 +18,15 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.serialization;
+package com.sx.framework.entity.ofy;
 
-import com.sx.framework.vo.ValueObject;
+import com.sx.framework.dao.ofy.GenericOfyEntityDAO;
 
 /**
- * Value object serializer.
+ * Objectify implementation for entity DAO pattern.
  * 
  * @author marcos.salomao
  */
-public interface VOSerializer {
-	
-	/**
-	 * Serializes a value object.
-	 * @param target value object to serializes
-	 * @return value object serialized
-	 */
-	String serialize(ValueObject target);
-	
+public class OfyEntityDAO extends GenericOfyEntityDAO<OfyEntity> {
+
 }

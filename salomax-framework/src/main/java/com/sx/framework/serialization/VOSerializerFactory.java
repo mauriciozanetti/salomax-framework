@@ -1,21 +1,21 @@
 /*
  *  Copyright 2013.
  *  
- *  Este arquivo é parte do programa SALOMAX FRAMEWORK.
- *  NÃO REMOVA OU MODIFIQUE o cabeçalho deste arquivo contendo sua licença de uso.
+ *  Este arquivo Ã© parte do programa SALOMAX FRAMEWORK.
+ *  NÃƒO REMOVA OU MODIFIQUE o cabeÃ§alho deste arquivo contendo sua licenÃ§a de uso.
  *  
- * SALOMAX FRAMEWORK é um software livre; você pode redistribuí-lo e/ou 
- * modificá-lo dentro dos termos da Licença Pública Geral GNU como 
- * publicada pela Fundação do Software Livre (FSF); na versão 2 da 
- * Licença, ou (na sua opinião) qualquer versão.
-
- * Este programa é distribuído na esperança de que possa ser  útil, 
- * mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer
- * MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
- * Licença Pública Geral GNU para maiores detalhes.
+ * SALOMAX FRAMEWORK Ã© um software livre; vocÃª pode redistribuÃ­-lo e/ou 
+ * modificÃ¡-lo dentro dos termos da LicenÃ§a PÃºblica Geral GNU como 
+ * publicada pela FundaÃ§Ã£o do Software Livre (FSF); na versÃ£o 3 da 
+ * LicenÃ§a.
+ *
+ * Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser  Ãºtil, 
+ * mas SEM NENHUMA GARANTIA; sem uma garantia implÃ­cita de ADEQUAÃ‡ÃƒO a qualquer
+ * MERCADO ou APLICAÃ‡ÃƒO EM PARTICULAR. Veja a
+ * LicenÃ§a PÃºblica Geral GNU para maiores detalhes.
  * 
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU
- * junto com este programa, se não, escreva para a Fundação do Software
+ * VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU
+ * junto com este programa, se nÃ£o, escreva para a FundaÃ§Ã£o do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 package com.sx.framework.serialization;
