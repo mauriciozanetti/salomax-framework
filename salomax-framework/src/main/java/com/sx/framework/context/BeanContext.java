@@ -24,24 +24,24 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * 
+ * TODO comments
  * 
  * @author salomax
- *
  */
 public class BeanContext {
 	
 	/**
-	 * 
+	 * TODO comments
 	 */
 	private static ApplicationContext context;
 	
 	/**
+	 * TODO comments
 	 * 
 	 * @param class1
 	 * @return
 	 */
-	public static <T> T getBean(Class<T> class1, Object... object) {
+	public static <T> T getBean(Class<T> class1) {
 		return getApplicationContext().getBean(class1);
 	}
 	
