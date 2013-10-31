@@ -78,6 +78,7 @@ public class GenericOfyEntityDAOUnitTest {
 
 		
 		if (thing == null) {
+			LOGGER.info("Creating a new Thing");
 			thing = new Thing();
 
 			Integer value = new Random().nextInt(1000);
@@ -113,8 +114,6 @@ public class GenericOfyEntityDAOUnitTest {
 	@Test
 	public void testLoadThing() {
 
-		assert(thing != null);
-
 		LOGGER.info("Loading Thing entity");
 
 		Integer compareValue = thing.getValue();
@@ -125,7 +124,11 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		assert(thing != null);
 		
+		assert(thing.getId() != null && thing.getId() > 0);
+		
 		assert(thing.getValue().equals(compareValue));
+		
+		LOGGER.info(thing.toString());
 
 	}
 	
@@ -143,7 +146,7 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		assert(list != null);
 		
-		assert(list.size() == 1);
+		//assert(list.size() == 1);
 		
 	}
 	
@@ -165,7 +168,9 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		List<Thing> list = dao.filter(filter, filter);
 		
-		assert(list.size() == 1);
+		assert(list != null);
+		
+		//assert(list.size() == 1);
 		
 	}
 	

@@ -23,11 +23,13 @@ package com.sx.framework.dao.ofy;
 import static com.sx.framework.dao.ofy.OfyHelper.ofy;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.googlecode.objectify.cmd.Query;
 import com.sx.framework.dao.EntityDAO;
 import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.Entity;
+import com.sx.framework.logging.LoggerFactory;
 
 /**
  * Objectify implementation for generic entity DAO pattern.
@@ -35,6 +37,12 @@ import com.sx.framework.entity.Entity;
  * @author marcos.salomao
  */
 public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
+	
+	/**
+	 * Logger.
+	 */
+	@SuppressWarnings("unused")
+	private final static Logger LOGGER = LoggerFactory.getLogger(GenericOfyEntityDAO.class);
 	
 	/**
 	 * Generic type class.
