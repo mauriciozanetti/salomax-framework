@@ -27,6 +27,8 @@ import org.junit.Test;
 import com.sx.framework.logging.LoggerFactory;
 import com.sx.framework.vo.ValueObject;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Logger Factory Unit Test
  * 
@@ -68,9 +70,9 @@ public class VOSerializerUnitTest {
 		
 		String valueObjectSerialized = valueObject.serialize();
 
-		assert(valueObjectSerialized != null);
+		assertTrue(valueObjectSerialized != null);
 
-		assert(valueObjectSerialized.contains(TEST_NAME));
+		assertTrue(valueObjectSerialized.contains(TEST_NAME));
 
 		LOGGER.info(valueObjectSerialized);
 		

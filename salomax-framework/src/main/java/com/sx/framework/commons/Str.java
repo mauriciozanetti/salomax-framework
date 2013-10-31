@@ -23,15 +23,11 @@ package com.sx.framework.commons;
 import java.util.Formatter;
 
 /**
+ * String commons utilities.
+ * 
  * @author marcos.salomao
- *
  */
 public class Str {
-	
-	/**
-	 * String formatter.
-	 */
-	private static final Formatter FORMATTER = new Formatter();
 	
 	/**
      * Writes a formatted string to this object's destination using the
@@ -40,8 +36,9 @@ public class Str {
      * 
      * @see java.util.Formatter.format(String, Object...);
 	 */
+	@SuppressWarnings("resource")
 	public static String format(String format, Object... args) {
-		return FORMATTER.format(format, args).toString();
+		return new Formatter().format(format, args).toString();
 	}
 
 }

@@ -36,6 +36,8 @@ import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Generic Entity DAO unit test.
  * 
@@ -109,9 +111,9 @@ public class GenericEntityDAOUnitTest {
 
 		thing = dao.save(thing);
 		
-		assert(thing != null);
+		assertTrue(thing != null);
 		
-		assert(thing.getId() != null && thing.getId() > 0);
+		assertTrue(thing.getId() != null && thing.getId() > 0);
 		
 		LOGGER.info(thing.toString());
 		
@@ -132,11 +134,11 @@ public class GenericEntityDAOUnitTest {
 		
 		thing = dao.load(thing);
 		
-		assert(thing != null);
+		assertTrue(thing != null);
 		
-		assert(thing.getId() != null && thing.getId() > 0);
+		assertTrue(thing.getId() != null && thing.getId() > 0);
 		
-		assert(thing.getValue().equals(compareValue));
+		assertTrue(thing.getValue().equals(compareValue));
 		
 		LOGGER.info(thing.toString());
 
@@ -155,9 +157,9 @@ public class GenericEntityDAOUnitTest {
 
 		List<Thing> list = dao.list(thing);
 		
-		assert(list != null);
+		assertTrue(list != null);
 		
-		assert(list.size() == 1);
+		assertTrue(list.size() == 1);
 		
 	}
 	
@@ -180,9 +182,9 @@ public class GenericEntityDAOUnitTest {
 		
 		List<Thing> list = dao.filter(thing, filter, filter);
 		
-		assert(list != null);
+		assertTrue(list != null);
 		
-		assert(list.size() == 1);
+		assertTrue(list.size() == 1);
 		
 	}
 	
@@ -201,7 +203,7 @@ public class GenericEntityDAOUnitTest {
 		
 		List<Thing> list = dao.list(thing);
 		
-		assert(list.size() == 0);
+		assertTrue(list.size() == 0);
 		
 		LOGGER.info("Generic ofy entity dao successful");
 		

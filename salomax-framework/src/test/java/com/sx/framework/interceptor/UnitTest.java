@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 import com.sx.framework.logging.LoggerFactory;
 
 /**
- * TODO comments
+ * Unit test help class.
  * 
  * @author marcos.salomao
  */
@@ -42,8 +42,9 @@ public class UnitTest {
 	/**
 	 * Testing interceptor method.
 	 */
-	public void testing() {
+	public Integer testing(Integer i) {
 		LOGGER.info("Testing...");
+		return i;
 	}
 	
 }

@@ -33,15 +33,15 @@ import com.sx.framework.commons.Str;
 import com.sx.framework.logging.LoggerFactory;
 
 /**
- * TODO comments
+ * Unit test with aspects.
  * 
  * @author marcos.salomao
  */
 @Aspect
-public class LoggingAspect {
+public class TestAspect {
 
 	/**
-	 * TODO comments.
+	 * Intercepted before method.
 	 * 	
 	 * @param joinPoint
 	 */
@@ -54,7 +54,7 @@ public class LoggingAspect {
 	}
 	
 	/**
-	 * TODO comments.
+	 * Intercepted after method.
 	 * 	
 	 * @param joinPoint
 	 */
@@ -67,21 +67,23 @@ public class LoggingAspect {
 	}
 	
 	/**
-	 * TODO comments.
+	 * Intercepted around method.
 	 * 	
 	 * @param joinPoint
 	 * @throws Throwable 
 	 */
-	@Around("execution(* com.sx.framework.interceptor.UnitTest.testing())")
-	public void logAround(ProceedingJoinPoint  joinPoint) throws Throwable {
+	@Around("execution(* com.sx.framework.interceptor.UnitTest.testing(..))")
+	public Object logAround(ProceedingJoinPoint  joinPoint) throws Throwable {
  
 		Logger LOGGER = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
 		
 		Long time = System.currentTimeMillis();
 		
-		joinPoint.proceed();
+		Object object = joinPoint.proceed(joinPoint.getArgs());
 		
 		LOGGER.info(Str.format("Around AOP testing in %d ms", (System.currentTimeMillis() - time)));
+		
+		return ((Integer) object) + 1;
 	}
 	
 }

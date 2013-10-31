@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Logger Factory Unit Test
  * 
@@ -42,7 +44,7 @@ public class LoggerFactoryUnitTest {
 	@Test
 	public void testLoggerFactory() {
 		
-		assert(LOGGER != null);
+		assertTrue(LOGGER != null);
 
 		LOGGER.info("Info message");
 		

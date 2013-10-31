@@ -24,11 +24,14 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 
+import com.sx.framework.commons.Str;
 import com.sx.framework.context.BeanContext;
 import com.sx.framework.logging.LoggerFactory;
 
+import static org.junit.Assert.assertTrue;
+
 /**
- * TODO comments.
+ * AOP interceptor unit test.
  * 
  * @author marcos.salomao
  */
@@ -49,7 +52,15 @@ public class InterceptorUnitTest {
 		
 		UnitTest test = BeanContext.getBean(UnitTest.class);
 		
-		test.testing();
+		Integer i = 1;
+		
+		i = test.testing(i);
+		
+		assertTrue(i != null);
+		
+		assertTrue(i.equals(2));
+		
+		LOGGER.info(Str.format("i value = %d", i));
 		
 	}
 	

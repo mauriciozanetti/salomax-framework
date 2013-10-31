@@ -13,6 +13,7 @@
 
 	<aop:aspectj-autoproxy />
 	
-	<bean id="loggingAspect" class="com.sx.framework.interceptor.LoggingAspect" />
+	<!-- AOP -->
+	<bean id="testAspect" class="com.sx.framework.interceptor.TestAspect" />
 
 </beans>
