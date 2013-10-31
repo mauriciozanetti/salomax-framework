@@ -1,7 +1,7 @@
 OK	Logging
 OK	VO Serialization
 OK	Persistence NoSQL (Objectify)
-	IoD (Spring core)
+OK	IoD (Spring core)
 	Transactions (Appengine/Objectify)
 	Service Bean (EJB like)
 	Interception

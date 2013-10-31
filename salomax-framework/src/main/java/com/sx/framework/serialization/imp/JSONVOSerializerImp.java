@@ -20,6 +20,9 @@
  */
 package com.sx.framework.serialization.imp;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.sx.framework.serialization.VOSerializer;
 import com.sx.framework.vo.ValueObject;
 
@@ -30,6 +33,8 @@ import flexjson.JSONSerializer;
  * 
  * @author marcos.salomao
  */
+@Component
+@Scope(value = "singleton")
 public class JSONVOSerializerImp implements VOSerializer {
 
 	/**
