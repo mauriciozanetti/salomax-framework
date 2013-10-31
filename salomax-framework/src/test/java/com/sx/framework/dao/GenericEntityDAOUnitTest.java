@@ -18,7 +18,7 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.dao.ofy;
+package com.sx.framework.dao;
 
 import java.util.List;
 import java.util.Random;
@@ -30,22 +30,23 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.sx.framework.dao.EntityDAO;
+import com.sx.framework.context.BeanContext;
+import com.sx.framework.dao.ofy.OfyHelper;
 import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;
 
 /**
- * Generic Ofy Entity DAO unit test.
+ * Generic Entity DAO unit test.
  * 
- * @author salomax
+ * @author marcos.salomao
  */
-public class GenericOfyEntityDAOUnitTest {
+public class GenericEntityDAOUnitTest {
 	
 	/**
 	 * Logger.
 	 */
-	private final static Logger LOGGER = LoggerFactory.getLogger(GenericOfyEntityDAOUnitTest.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(GenericEntityDAOUnitTest.class);
 	
 	/**
 	 * LocalServiceTestHelper.
@@ -88,6 +89,14 @@ public class GenericOfyEntityDAOUnitTest {
 	}
 	
 	/**
+	 * After test.
+	 */
+	@After
+	public void afterTest() {
+		helper.tearDown();
+	}
+	
+	/**
 	 * Test save thing.
 	 */
 	@Test
@@ -95,7 +104,8 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		LOGGER.info("Saving Thing entity");
 		
-		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+		@SuppressWarnings("unchecked")
+		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
 
 		thing = dao.save(thing);
 		
@@ -106,7 +116,6 @@ public class GenericOfyEntityDAOUnitTest {
 		LOGGER.info(thing.toString());
 		
 	}
-	
 
 	/**
 	 * Test load thing.
@@ -118,7 +127,8 @@ public class GenericOfyEntityDAOUnitTest {
 
 		Integer compareValue = thing.getValue();
 
-		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+		@SuppressWarnings("unchecked")
+		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
 		
 		thing = dao.load(thing);
 		
@@ -140,13 +150,14 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		LOGGER.info("Listing Thing entity");
 		
-		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+		@SuppressWarnings("unchecked")
+		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
 
-		List<Thing> list = dao.list();
+		List<Thing> list = dao.list(thing);
 		
 		assert(list != null);
 		
-		//assert(list.size() == 1);
+		assert(list.size() == 1);
 		
 	}
 	
@@ -158,7 +169,8 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		LOGGER.info("Filtering Thing entity");
 		
-		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+		@SuppressWarnings("unchecked")
+		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
 
 		Integer compareValue = thing.getValue();
 		
@@ -166,11 +178,11 @@ public class GenericOfyEntityDAOUnitTest {
 		filter.setLeft("value");
 		filter.setRight(compareValue);
 		
-		List<Thing> list = dao.filter(filter, filter);
+		List<Thing> list = dao.filter(thing, filter, filter);
 		
 		assert(list != null);
 		
-		//assert(list.size() == 1);
+		assert(list.size() == 1);
 		
 	}
 	
@@ -182,13 +194,12 @@ public class GenericOfyEntityDAOUnitTest {
 		
 		LOGGER.info("Delete Thing entity");
 		
-		EntityDAO<Thing> dao = new GenericOfyEntityDAO<Thing>(Thing.class);
+		@SuppressWarnings("unchecked")
+		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
 		
 		dao.delete(thing);
 		
-		List<Thing> list = dao.list();
-		
-		list = dao.list();
+		List<Thing> list = dao.list(thing);
 		
 		assert(list.size() == 0);
 		
@@ -196,12 +207,4 @@ public class GenericOfyEntityDAOUnitTest {
 		
 	}
 	
-	/**
-	 * After test.
-	 */
-	@After
-	public void afterTest() {
-		helper.tearDown();
-	}
-
 }

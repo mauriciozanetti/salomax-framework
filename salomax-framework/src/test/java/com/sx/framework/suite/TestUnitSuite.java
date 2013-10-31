@@ -18,50 +18,27 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.service;
+package com.sx.framework.suite;
 
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import com.sx.framework.dao.utils.Filter;
-import com.sx.framework.entity.Entity;
+import com.sx.framework.dao.GenericEntityDAOUnitTest;
+import com.sx.framework.logging.LoggerFactoryUnitTest;
+import com.sx.framework.serialization.VOSerializerUnitTest;
+import com.sx.framework.service.GenericEntityServiceUnitTest;
 
 /**
- * Service interface with main method's entity.
+ * Suite test.
  * 
  * @author marcos.salomao
  */
-public interface EntityService<T extends Entity<?>> extends Service {
-
-	/**
-	 * Save a entity.
-	 * @param entity entity
-	 * @return returns a entity saved
-	 */
-	T save(T entity);
-
-	/**
-	 * Load a entity from your id.
-	 * @param entity entity
-	 * @return returns a entity
-	 */
-	T load(T entity);
-	
-	/**
-	 * Delete a entity from your id.
-	 * @param entity entity
-	 */
-	void delete(T entity);
-
-	/**
-	 * List entities saved.
-	 * @return list of entities
-	 */
-	List<T> list(T entity);
-	
-	/**
-	 * Filter list entities <T>.
-	 * @return list of entities <T> filtered
-	 */
-	List<T> filter(T entity, Filter... filters);
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	LoggerFactoryUnitTest.class,
+	VOSerializerUnitTest.class,
+	GenericEntityDAOUnitTest.class, 
+	GenericEntityServiceUnitTest.class})
+public class TestUnitSuite {
 
 }

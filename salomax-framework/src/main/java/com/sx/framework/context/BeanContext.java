@@ -41,11 +41,20 @@ public class BeanContext {
 	 * @param class1
 	 * @return
 	 */
-	public static <T> T getBean(Class<T> class1) {
+	public static <T> T getBean(Class<T> class1, Object... object) {
+		return getApplicationContext().getBean(class1);
+	}
+	
+	/**
+	 * 
+	 * @param class1
+	 * @return
+	 */
+	public static ApplicationContext getApplicationContext() {
 		if (context == null) {
 			context = new ClassPathXmlApplicationContext(new String[] {"bean-definitions.xml"}); 
 		}
-		return context.getBean(class1);
+		return context;
 	}
 
 }

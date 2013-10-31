@@ -56,13 +56,14 @@ public interface EntityDAO<T extends Entity<?>> extends DAO {
 	 * List entities saved.
 	 * @return list of entities
 	 */
-	List<T> list();
+	List<T> list(T entity);
 	
 	/**
 	 * Filter list.
-	 * 
+	 * @param classType Return class type list
+	 * @param filters Filters
 	 * @return filtered list of entities <T>
 	 */
-	List<T> filter(Filter... filters);
+	List<T> filter(T entity, Filter... filters);
 
 }
