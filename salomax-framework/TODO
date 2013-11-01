@@ -10,6 +10,8 @@ OK	Service Bean (EJB like)
 	Exceptions
 	i18n
 	Bean Validation
+	Many Spring Application Context xml confs
+	
 
 0.2 Core View
 ============
