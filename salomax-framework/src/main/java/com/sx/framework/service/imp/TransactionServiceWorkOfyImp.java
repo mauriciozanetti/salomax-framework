@@ -24,9 +24,9 @@ import org.springframework.stereotype.Component;
 
 import com.googlecode.objectify.TxnType;
 import com.googlecode.objectify.Work;
-import com.sx.framework.service.TransactionServiceWork;
-import com.sx.framework.service.TransactionWork;
+import com.sx.framework.transaction.TransactionServiceWork;
 import com.sx.framework.transaction.TransactionType;
+import com.sx.framework.transaction.TransactionWork;
 
 import static com.sx.framework.dao.imp.OfyHelper.ofy;
 

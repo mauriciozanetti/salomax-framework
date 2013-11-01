@@ -18,9 +18,8 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.service;
+package com.sx.framework.transaction;
 
-import com.sx.framework.transaction.TransactionType;
 
 
 /**
