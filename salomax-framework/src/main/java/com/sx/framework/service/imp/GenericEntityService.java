@@ -23,19 +23,21 @@ package com.sx.framework.service.imp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.sx.framework.dao.EntityDAO;
 import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.Entity;
 import com.sx.framework.service.EntityService;
+import com.sx.framework.transaction.Transaction;
+import com.sx.framework.transaction.TransactionType;
 
 /**
  * Generic entity service.
  * 
  * @author marcos.salomao
  */
-@Component
+@Service
 public class GenericEntityService<T extends Entity<?>> implements EntityService<T> {
 
 	/**
@@ -49,6 +51,7 @@ public class GenericEntityService<T extends Entity<?>> implements EntityService<
 	 * @param entity entity
 	 * @return returns a entity saved
 	 */
+	@Transaction(type=TransactionType.REQUIRED)
 	public T save(T entity) {
 		return entityDAO.save(entity);
 	}
@@ -66,6 +69,7 @@ public class GenericEntityService<T extends Entity<?>> implements EntityService<
 	 * Delete a entity from your id.
 	 * @param entity entity
 	 */
+	@Transaction(type=TransactionType.REQUIRED)
 	public void delete(T entity) {
 		entityDAO.delete(entity);
 	}
@@ -78,6 +82,10 @@ public class GenericEntityService<T extends Entity<?>> implements EntityService<
 		return entityDAO.list(entity);
 	}
 
+	/**
+	 * Filter list entities <T>.
+	 * @return list of entities <T> filtered
+	 */
 	public List<T> filter(T entity, Filter... filters) {
 		return entityDAO.filter(entity, filters);
 	}
