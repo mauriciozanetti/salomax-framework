@@ -1,3 +1,5 @@
+0.1 Core Backend
+================
 OK	Logging
 OK	VO Serialization
 OK	Persistence NoSQL (Objectify)
@@ -6,6 +8,17 @@ OK	Spring AOP (Interception)
 OK	Service Bean (EJB like) 
 	Transactions (Appengine/Objectify) (commit/rollback)
 	Exceptions
+	i18n
+	Bean Validation
+
+0.2 Core View
+============
 	Spring MVC
-	Others Design Patterns
+	Taglib
+
+0.3 Security
+============
+	OAuth 2.0 with Google
+	OAuth 2.0 with facebook
+	
 	
