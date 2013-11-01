@@ -26,7 +26,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Bean factory by Spring context.
  * 
- * @author salomax
+ * @author marcos.salomao
  */
 public class BeanContext {
 	
