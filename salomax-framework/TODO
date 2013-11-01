@@ -17,6 +17,7 @@ OK	Service Bean (EJB like)
 ============
 	Spring MVC
 	Taglib
+	REST
 
 0.3 Security
 ============
@@ -24,3 +25,5 @@ OK	Service Bean (EJB like)
 	OAuth 2.0 with facebook
 	
 	
+	
+
