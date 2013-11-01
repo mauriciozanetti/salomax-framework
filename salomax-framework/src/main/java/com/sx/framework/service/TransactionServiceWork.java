@@ -18,48 +18,24 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.dao.ofy;
+package com.sx.framework.service;
 
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.ObjectifyFactory;
-import com.googlecode.objectify.ObjectifyService;
+import com.sx.framework.transaction.TransactionType;
+
 
 /**
- * Objectify helper.
+ * TODO comments.
  * 
  * @author salomax
  */
-public class OfyHelper {
-	
-	/**
-	 * Static block to register basic ofy entities.
-	 */
-	static {
-    }
-	
-	/**
-	 * Register entity.
-	 */
-	public static void register(Class<?> e) {
-        factory().register(e);
-	}
+public interface TransactionServiceWork {
 
 	/**
-	 * Return Objectify instance.
-	 * 
-	 * @return Objectify instance
+	 * TODO comments
+	 * @param name
+	 * @param transactionWork
+	 * @return
 	 */
-    public static Objectify ofy() {
-        return ObjectifyService.ofy();
-    }
-
-	/**
-	 * Return Objectify factory instance.
-	 * 
-	 * @return Objectify factory instance
-	 */
-    public static ObjectifyFactory factory() {
-        return ObjectifyService.factory();
-    }
+	Object execute(TransactionType transactionType, TransactionWork<Object> transactionWork);
 
 }

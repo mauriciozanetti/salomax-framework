@@ -20,8 +20,6 @@
  */
 package com.sx.framework.interceptor;
 
-import static com.sx.framework.dao.ofy.OfyHelper.ofy;
-
 import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
@@ -29,11 +27,12 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.googlecode.objectify.TxnType;
-import com.googlecode.objectify.Work;
 import com.sx.framework.commons.Str;
 import com.sx.framework.logging.LoggerFactory;
+import com.sx.framework.service.TransactionServiceWork;
+import com.sx.framework.service.TransactionWork;
 import com.sx.framework.transaction.Transaction;
 import com.sx.framework.transaction.TransactionType;
 
@@ -44,6 +43,12 @@ import com.sx.framework.transaction.TransactionType;
  */
 @Aspect
 public class ServiceAspect {
+	
+	/**
+	 * Transaction service.
+	 */
+	@Autowired
+	private TransactionServiceWork transactionServiceWork;
 	
 	/**
 	 * Intercepted transaction service method 
@@ -66,34 +71,32 @@ public class ServiceAspect {
 		
 		Transaction transaction = method.getAnnotation(Transaction.class);
 		
+		//Default transaction type
 		TransactionType transactionType = TransactionType.SUPPORTS;
 		
 		if (transaction != null) {
 			
 			transactionType = transaction.type();
 			
-			LOGGER.fine(Str.format("%s service transaction type applied for %s method", 
+			LOGGER.info(Str.format("%s service transaction type applied for %s method", 
 					transactionType, method.getName()));
 			
 		}
-		
-		//TODO encapsulate ofy
-		return ofy().execute(TxnType.valueOf(transactionType.name()), new Work<Object>() {
-            public Object run() {
-            	
-                try {
-                	
-                    return joinPoint.proceed(joinPoint.getArgs());
-                    
-                } catch (Throwable e) {
-                	// TODO logger this
-					e.printStackTrace();
-					
-				}
-             // TODO better this
-				throw new RuntimeException();
-            }
-        });
+
+		return transactionServiceWork.execute(
+				transactionType, 
+				new TransactionWork<Object>() {
+					public Object run() {
+			            try {
+			                return joinPoint.proceed(joinPoint.getArgs());
+			            } catch (Throwable e) {
+			            	// TODO logger this
+							e.printStackTrace();
+						}
+			         // TODO better this
+						throw new RuntimeException();
+			        }
+				});
 
 	}
 

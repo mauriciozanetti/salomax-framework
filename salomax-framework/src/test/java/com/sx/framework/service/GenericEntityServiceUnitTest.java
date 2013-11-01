@@ -33,7 +33,7 @@ import org.junit.Test;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.sx.framework.context.BeanContext;
-import com.sx.framework.dao.ofy.OfyHelper;
+import com.sx.framework.dao.imp.OfyHelper;
 import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;

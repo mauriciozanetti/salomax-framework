@@ -18,9 +18,9 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.dao.ofy;
+package com.sx.framework.dao.imp;
 
-import static com.sx.framework.dao.ofy.OfyHelper.ofy;
+import static com.sx.framework.dao.imp.OfyHelper.ofy;
 
 import java.util.List;
 import java.util.logging.Logger;
