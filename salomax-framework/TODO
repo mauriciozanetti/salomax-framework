@@ -16,6 +16,7 @@ OK	Service Bean (EJB like)
 0.2 Core View
 ============
 	Spring MVC (see http://www.mkyong.com/spring3/spring-3-mvc-hello-world-example/)
+	JSON (http://www.mkyong.com/spring-mvc/spring-3-mvc-and-json-example/)
 	REST (see http://www.mkyong.com/spring-mvc/spring-3-rest-hello-world-example/)
 	Taglib Xtension
 	JSLib (JQuery)
