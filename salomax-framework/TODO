@@ -19,7 +19,8 @@ OK	Service Bean (EJB like)
 	JSON (http://www.mkyong.com/spring-mvc/spring-3-mvc-and-json-example/)
 	REST (see http://www.mkyong.com/spring-mvc/spring-3-rest-hello-world-example/)
 	Taglib Xtension
-	JSLib (JQuery)
+	JavaScript Lib (JQuery)
+	Mobile (JQuery)
 
 0.3 Security
 ============
