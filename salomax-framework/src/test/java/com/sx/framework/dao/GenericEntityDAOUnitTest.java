@@ -20,12 +20,14 @@
  */
 package com.sx.framework.dao;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
@@ -35,8 +37,6 @@ import com.sx.framework.dao.ofy.OfyHelper;
 import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Generic Entity DAO unit test.
@@ -53,7 +53,7 @@ public class GenericEntityDAOUnitTest {
 	/**
 	 * LocalServiceTestHelper.
 	 */
-	private final LocalServiceTestHelper helper =
+	private final static LocalServiceTestHelper helper =
 		    new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 	
 
@@ -72,13 +72,12 @@ public class GenericEntityDAOUnitTest {
 	/**
 	 * Before test.
 	 */
-	@Before
-	public void beforeTest() {
+	@BeforeClass
+	public static void beforeTest() {
 	
 		LOGGER.info("Testing generic ofy entity dao");
 		
 		helper.setUp();
-
 		
 		if (thing == null) {
 			LOGGER.info("Creating a new Thing");
@@ -93,8 +92,8 @@ public class GenericEntityDAOUnitTest {
 	/**
 	 * After test.
 	 */
-	@After
-	public void afterTest() {
+	@AfterClass
+	public static void afterTest() {
 		helper.tearDown();
 	}
 	

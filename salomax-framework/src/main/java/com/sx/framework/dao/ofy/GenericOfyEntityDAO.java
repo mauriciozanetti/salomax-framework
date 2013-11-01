@@ -89,8 +89,6 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	 */
 	public List<T> list(T entity) {
 		
-		assert(entity != null);
-
 		@SuppressWarnings("unchecked")
 		List<T> list = ofy().load().type((Class<T>) entity.getClass()).list();
 		
@@ -105,8 +103,6 @@ public class GenericOfyEntityDAO<T extends Entity<?>> implements EntityDAO<T> {
 	 */
 	public List<T> filter(T entity, Filter... filters) {
 		
-		assert(entity != null);
-
 		@SuppressWarnings("unchecked")
 		Query<T> query = ofy().load().type((Class<T>) entity.getClass());
 		
