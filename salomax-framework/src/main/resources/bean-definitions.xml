@@ -14,6 +14,9 @@
 	<aop:aspectj-autoproxy />
 	
 	<!-- AOP -->
-	<bean id="testAspect" class="com.sx.framework.interceptor.TestAspect" />
+
+	<bean id="testAspect" class="com.sx.framework.interceptor.TestAspect" /> <!-- JUnit Testing -->
+
+	<bean id="serviceAspect" class="com.sx.framework.interceptor.ServiceAspect" />
 
 </beans>
