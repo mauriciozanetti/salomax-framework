@@ -1,3 +1,5 @@
+0.1 Core Backend
+================
 OK	Logging
 OK	VO Serialization
 OK	Persistence NoSQL (Objectify)
@@ -6,6 +8,25 @@ OK	Spring AOP (Interception)
 OK	Service Bean (EJB like) 
 	Transactions (Appengine/Objectify) (commit/rollback)
 	Exceptions
-	Spring MVC
-	Others Design Patterns
-	Continuous integration (see travis)
+	i18n
+	Bean Validation
+	Many Spring Application Context xml confs
+	
+
+0.2 Core View
+============
+	Spring MVC (see http://www.mkyong.com/spring3/spring-3-mvc-hello-world-example/)
+	JSON (http://www.mkyong.com/spring-mvc/spring-3-mvc-and-json-example/)
+	REST (see http://www.mkyong.com/spring-mvc/spring-3-rest-hello-world-example/)
+	Taglib Xtension
+	JavaScript Lib (JQuery)
+	Mobile (JQuery)
+
+0.3 Security
+============
+	OAuth 2.0 with Google
+	OAuth 2.0 with facebook
+	
+	
+	
+
