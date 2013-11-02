@@ -24,31 +24,31 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * TODO comments
+ * Bean factory by Spring context.
  * 
- * @author salomax
+ * @author marcos.salomao
  */
 public class BeanContext {
 	
 	/**
-	 * TODO comments
+	 * Central interface to provide configuration for an application.
 	 */
 	private static ApplicationContext context;
 	
 	/**
-	 * TODO comments
+	 * Returns bean implementation ou reference by class.
 	 * 
-	 * @param class1
-	 * @return
+	 * @param class1 class type reference
+	 * @return Bean implementation
 	 */
 	public static <T> T getBean(Class<T> class1) {
 		return getApplicationContext().getBean(class1);
 	}
 	
 	/**
+	 * Returns Spring application context using XML configuration.
 	 * 
-	 * @param class1
-	 * @return
+	 * @return Spring application context
 	 */
 	public static ApplicationContext getApplicationContext() {
 		if (context == null) {
