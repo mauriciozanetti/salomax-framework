@@ -20,35 +20,49 @@
  */
 package com.sx.framework.service.imp;
 
-import org.springframework.stereotype.Component;
+import static com.sx.framework.dao.imp.OfyHelper.ofy;
+
+import java.util.logging.Logger;
 
 import com.googlecode.objectify.TxnType;
 import com.googlecode.objectify.Work;
+import com.sx.framework.commons.Str;
+import com.sx.framework.logging.LoggerFactory;
 import com.sx.framework.transaction.TransactionServiceWork;
 import com.sx.framework.transaction.TransactionType;
 import com.sx.framework.transaction.TransactionWork;
-
-import static com.sx.framework.dao.imp.OfyHelper.ofy;
 
 /**
  * TODO comments.
  * 
  * @author salomax
  */
-@Component
 public class TransactionServiceWorkOfyImp implements TransactionServiceWork {
 
+	/**
+	 * Logger.
+	 */
+	private final static Logger LOGGER = LoggerFactory.getLogger(TransactionServiceWorkOfyImp.class);
+	
 	/**
 	 * TODO comments.
 	 */
 	public Object execute(final TransactionType transactionType, 
 			final TransactionWork<Object> transactionWork) {
 		
+		LOGGER.fine(Str.format("Execute objectify transaction work with type %s", transactionType.name()));
+		
 		return ofy().execute(
 				TxnType.valueOf(transactionType.name()), 
 				new Work<Object>() {
 		            public Object run() {
-		                return transactionWork.run();
+		            	try {
+		            		Object r = transactionWork.run();
+			                return r;
+		            	} catch(Throwable e) {
+		            		ofy().getTransaction().rollback();
+		            		throw new RuntimeException(e);
+		            	}
 		            }
 				});
 		

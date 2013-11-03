@@ -24,10 +24,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import com.sx.framework.dao.GenericEntityDAOUnitTest;
-import com.sx.framework.interceptor.InterceptorUnitTest;
 import com.sx.framework.logging.LoggerFactoryUnitTest;
 import com.sx.framework.serialization.VOSerializerUnitTest;
 import com.sx.framework.service.GenericEntityServiceUnitTest;
+import com.sx.framework.transaction.ServiceTransactionUnitTest;
 
 /**
  * Suite test.
@@ -40,7 +40,7 @@ import com.sx.framework.service.GenericEntityServiceUnitTest;
 	VOSerializerUnitTest.class,
 	GenericEntityDAOUnitTest.class, 
 	GenericEntityServiceUnitTest.class,
-	InterceptorUnitTest.class})
+	ServiceTransactionUnitTest.class})
 public class TestUnitSuite {
 
 }

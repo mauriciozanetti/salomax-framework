@@ -20,21 +20,17 @@
  */
 package com.sx.framework.interceptor;
 
-import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.sx.framework.commons.Str;
 import com.sx.framework.logging.LoggerFactory;
 import com.sx.framework.transaction.Transaction;
 import com.sx.framework.transaction.TransactionServiceWork;
-import com.sx.framework.transaction.TransactionType;
-import com.sx.framework.transaction.TransactionWork;
 
 /**
  * Services aspects.
@@ -45,10 +41,28 @@ import com.sx.framework.transaction.TransactionWork;
 public class ServiceAspect {
 	
 	/**
+	 * Logging.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceAspect.class);
+	
+	/**
 	 * Transaction service.
 	 */
 	@Autowired
 	private TransactionServiceWork transactionServiceWork;
+	
+	@Pointcut("call(* *(..)) && !within(ServiceAspect)")
+	private void applyTransaction() {
+		// com.sx.framework.transaction.ThingService.test
+		// execution(public * *(..))
+		//com.sx.framework.service.Service+.
+	}
+
+	@Around("applyTransaction()")
+	public Object applyTransaction(final ProceedingJoinPoint  proceedingJoinPoint) throws Throwable {
+		LOGGER.info(">>>>>>>" + proceedingJoinPoint.toString());
+		return proceedingJoinPoint.proceed();
+	}
 	
 	/**
 	 * Intercepted transaction service method 
@@ -57,6 +71,7 @@ public class ServiceAspect {
 	 * @param joinPoint joinPoint
 	 * @throws Throwable throwable
 	 */
+	/*
 	@Around("execution(* com.sx.framework.service.Service+.*(..))")
 	public Object applyTransaction(final ProceedingJoinPoint  joinPoint) throws Throwable {
  
@@ -72,7 +87,7 @@ public class ServiceAspect {
 		Transaction transaction = method.getAnnotation(Transaction.class);
 		
 		//Default transaction type
-		TransactionType transactionType = TransactionType.SUPPORTS;
+		TransactionType transactionType = TransactionType.NOT_SUPPORTED;
 		
 		if (transaction != null) {
 			
@@ -99,5 +114,6 @@ public class ServiceAspect {
 				});
 
 	}
+	*/
 
 }

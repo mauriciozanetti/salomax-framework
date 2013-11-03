@@ -18,18 +18,21 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.transaction;
+package com.sx.framework.transaction.service;
 
 import com.sx.framework.entity.ofy.Thing;
-import com.sx.framework.service.imp.GenericEntityService;
+import com.sx.framework.service.EntityService;
 
 /**
  * TODO comments.
  * 
  * @author salomax
  */
-public class ThingService extends GenericEntityService<Thing> {
+public interface ThingService extends EntityService<Thing> {
 	
+	/**
+	 * Transactional method.
+	 */
+	public void testTransaction(Thing thing);
 	
-
 }

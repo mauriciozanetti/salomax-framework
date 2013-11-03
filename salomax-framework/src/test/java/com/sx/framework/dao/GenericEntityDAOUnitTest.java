@@ -32,7 +32,10 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.sx.framework.context.BeanContext;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.sx.framework.dao.imp.GenericOfyEntityDAO;
 import com.sx.framework.dao.imp.OfyHelper;
 import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.ofy.Thing;
@@ -55,12 +58,16 @@ public class GenericEntityDAOUnitTest {
 	 */
 	private final static LocalServiceTestHelper helper =
 		    new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-	
 
 	/**
 	 * Thing entity test.
 	 */
 	private static Thing thing;
+	
+	/**
+	 * Inject.
+	 */
+	private static Injector injector;
 	
 	/**
 	 * Static block to register.
@@ -86,7 +93,18 @@ public class GenericEntityDAOUnitTest {
 			Integer value = new Random().nextInt(1000);
 			thing.setValue(value);
 		}
-	
+		
+		if (injector == null) {
+			injector = Guice.createInjector(new AbstractModule() {
+				
+				@Override
+				protected void configure() {
+					bind(EntityDAO.class).to(GenericOfyEntityDAO.class);		
+				}
+				
+			});
+		}
+		
 	}
 	
 	/**
@@ -106,7 +124,7 @@ public class GenericEntityDAOUnitTest {
 		LOGGER.info("Saving Thing entity");
 		
 		@SuppressWarnings("unchecked")
-		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
+		EntityDAO<Thing> dao = injector.getInstance(EntityDAO.class);
 
 		thing = dao.save(thing);
 		
@@ -129,7 +147,7 @@ public class GenericEntityDAOUnitTest {
 		Integer compareValue = thing.getValue();
 
 		@SuppressWarnings("unchecked")
-		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
+		EntityDAO<Thing> dao = injector.getInstance(EntityDAO.class);
 		
 		thing = dao.load(thing);
 		
@@ -152,7 +170,7 @@ public class GenericEntityDAOUnitTest {
 		LOGGER.info("Listing Thing entity");
 		
 		@SuppressWarnings("unchecked")
-		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
+		EntityDAO<Thing> dao = injector.getInstance(EntityDAO.class);
 
 		List<Thing> list = dao.list(thing);
 		
@@ -171,7 +189,7 @@ public class GenericEntityDAOUnitTest {
 		LOGGER.info("Filtering Thing entity");
 		
 		@SuppressWarnings("unchecked")
-		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
+		EntityDAO<Thing> dao = injector.getInstance(EntityDAO.class);
 
 		Integer compareValue = thing.getValue();
 		
@@ -196,7 +214,7 @@ public class GenericEntityDAOUnitTest {
 		LOGGER.info("Delete Thing entity");
 		
 		@SuppressWarnings("unchecked")
-		EntityDAO<Thing> dao = BeanContext.getBean(EntityDAO.class);
+		EntityDAO<Thing> dao = injector.getInstance(EntityDAO.class);
 		
 		dao.delete(thing);
 		

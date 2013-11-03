@@ -4,14 +4,16 @@ OK	Logging
 OK	VO Serialization
 OK	Persistence NoSQL (Objectify)
 OK	IoD (Spring core)
-OK	Spring AOP (Interception) 
-OK	Service Bean (EJB like) 
+	AOP (see Javaassist)
+	Service Bean (EJB like) 
 	Transactions (Appengine/Objectify) (commit/rollback)
 	Exceptions
 	i18n
 	Bean Validation
 	Many Spring Application Context xml confs
 	
+see too
+https://developers.google.com/appengine/articles/spring_optimization
 
 0.2 Core View
 ============

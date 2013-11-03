@@ -32,11 +32,18 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.sx.framework.context.BeanContext;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
+import com.sx.framework.dao.EntityDAO;
+import com.sx.framework.dao.imp.GenericOfyEntityDAO;
 import com.sx.framework.dao.imp.OfyHelper;
 import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;
+import com.sx.framework.service.imp.GenericEntityService;
 
 /**
  * Generic Entity DAO unit test.
@@ -69,6 +76,11 @@ public class GenericEntityServiceUnitTest {
 	}
 	
 	/**
+	 * Inject.
+	 */
+	private static Injector injector;
+	
+	/**
 	 * Before test.
 	 */
 	@BeforeClass
@@ -85,6 +97,18 @@ public class GenericEntityServiceUnitTest {
 
 			Integer value = new Random().nextInt(1000);
 			thing.setValue(value);
+		}
+		
+		if (injector == null) {
+			injector = Guice.createInjector(new AbstractModule() {
+				
+				@Override
+				protected void configure() {
+					bind(new TypeLiteral<EntityService<Thing>>(){}).to(new TypeLiteral<GenericEntityService<Thing>>(){});	
+					bind(new TypeLiteral<EntityDAO<Thing>>(){}).to(new TypeLiteral<GenericOfyEntityDAO<Thing>>() {});	
+				}
+				
+			});
 		}
 	
 	}
@@ -105,8 +129,7 @@ public class GenericEntityServiceUnitTest {
 		
 		LOGGER.info("Saving Thing entity");
 		
-		@SuppressWarnings("unchecked")
-		EntityService<Thing> service = BeanContext.getBean(EntityService.class);
+		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
 
 		thing = service.save(thing);
 		
@@ -129,8 +152,7 @@ public class GenericEntityServiceUnitTest {
 
 		Integer compareValue = thing.getValue();
 
-		@SuppressWarnings("unchecked")
-		EntityService<Thing> service = BeanContext.getBean(EntityService.class);
+		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
 		
 		thing = service.load(thing);
 		
@@ -152,9 +174,8 @@ public class GenericEntityServiceUnitTest {
 		
 		LOGGER.info("Listing Thing entity");
 		
-		@SuppressWarnings("unchecked")
-		EntityService<Thing> service = BeanContext.getBean(EntityService.class);
-
+		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
+		
 		List<Thing> list = service.list(thing);
 		
 		assertTrue(list != null);
@@ -171,8 +192,7 @@ public class GenericEntityServiceUnitTest {
 		
 		LOGGER.info("Filtering Thing entity");
 		
-		@SuppressWarnings("unchecked")
-		EntityService<Thing> service = BeanContext.getBean(EntityService.class);
+		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
 
 		Integer compareValue = thing.getValue();
 		
@@ -196,8 +216,7 @@ public class GenericEntityServiceUnitTest {
 		
 		LOGGER.info("Delete Thing entity");
 		
-		@SuppressWarnings("unchecked")
-		EntityService<Thing> service = BeanContext.getBean(EntityService.class);
+		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
 		
 		service.delete(thing);
 		

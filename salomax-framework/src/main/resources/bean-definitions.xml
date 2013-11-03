@@ -12,11 +12,5 @@
 	<context:component-scan base-package="com.sx.framework" />
 
 	<aop:aspectj-autoproxy />
-	
-	<!-- AOP -->
-
-	<bean id="testAspect" class="com.sx.framework.interceptor.TestAspect" /> <!-- JUnit Testing -->
-
-	<bean id="serviceAspect" class="com.sx.framework.interceptor.ServiceAspect" />
 
 </beans>

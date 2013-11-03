@@ -22,8 +22,7 @@ package com.sx.framework.service.imp;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.inject.Inject;
 
 import com.sx.framework.dao.EntityDAO;
 import com.sx.framework.dao.utils.Filter;
@@ -37,13 +36,12 @@ import com.sx.framework.transaction.TransactionType;
  * 
  * @author marcos.salomao
  */
-@Service
 public class GenericEntityService<T extends Entity<?>> implements EntityService<T> {
 
 	/**
 	 * Generic entity DAO pattern.
 	 */
-	@Autowired
+	@Inject
 	private EntityDAO<T> entityDAO;
 	
 	/**

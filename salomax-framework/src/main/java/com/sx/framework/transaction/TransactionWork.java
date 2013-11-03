@@ -32,5 +32,5 @@ public interface TransactionWork<S> {
 	 * @return
 	 */
 	S run();
-
+	
 }

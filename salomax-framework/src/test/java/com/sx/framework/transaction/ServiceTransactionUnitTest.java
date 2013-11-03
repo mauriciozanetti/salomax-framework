@@ -20,6 +20,9 @@
  */
 package com.sx.framework.transaction;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -29,9 +32,14 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.sx.framework.commons.Str;
 import com.sx.framework.dao.imp.OfyHelper;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;
+import com.sx.framework.transaction.binding.TransactionModule;
+import com.sx.framework.transaction.service.ThingService;
 
 /**
  * Service transaction context unit test.
@@ -40,7 +48,6 @@ import com.sx.framework.logging.LoggerFactory;
  */
 public class ServiceTransactionUnitTest {
 	
-
 	/**
 	 * Logger.
 	 */
@@ -59,6 +66,11 @@ public class ServiceTransactionUnitTest {
 	private static Thing thing;
 	
 	/**
+	 * Inject.
+	 */
+	private static Injector injector;
+	
+	/**
 	 * Static block to register.
 	 */
 	static {
@@ -74,6 +86,10 @@ public class ServiceTransactionUnitTest {
 		LOGGER.info("Testing generic ofy entity dao");
 		
 		helper.setUp();
+		
+		if (injector == null) {
+			injector = Guice.createInjector(new TransactionModule());
+		}
 		
 		if (thing == null) {
 			LOGGER.info("Creating a new Thing");
@@ -98,6 +114,22 @@ public class ServiceTransactionUnitTest {
 	 */
 	@Test
 	public void testSaveThing() {
+		
+		ThingService service = injector.getInstance(ThingService.class);
+		
+		try {
+			service.testTransaction(thing);
+		} catch(Throwable t) {
+			// Expected
+		}
+		
+		List<Thing> list = service.list(thing);
+		
+		assertTrue(list != null);
+		
+		LOGGER.info(Str.format("list size: %d", list.size()));
+		
+		assertTrue(list.size() == 0);
 		
 	}
 
