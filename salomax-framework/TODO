@@ -11,7 +11,7 @@ OK	Persistence NoSQL (Objectify)
 	i18n
 	JAXB
 	Bean Validation
-	XML configuration
+	XML (DOM, SAX)
 	Spring MVC (see http://www.mkyong.com/spring3/spring-3-mvc-hello-world-example/)
 	
 0.2 Xtende Core
