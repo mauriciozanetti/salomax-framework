@@ -1,23 +1,21 @@
-0.1 Core Backend
+0.1 Core
 ================
 OK	Logging
 OK	VO Serialization
 OK	Persistence NoSQL (Objectify)
-OK	IoD (Spring core)
-	AOP (see Javaassist)
-	Service Bean (EJB like) 
+	IoD (Guice)
+	AOP (Guice)
 	Transactions (Appengine/Objectify) (commit/rollback)
+	Service Bean (like EJB) 
 	Exceptions
 	i18n
+	JAXB
 	Bean Validation
-	Many Spring Application Context xml confs
-	
-see too
-https://developers.google.com/appengine/articles/spring_optimization
-
-0.2 Core View
-============
+	XML configuration
 	Spring MVC (see http://www.mkyong.com/spring3/spring-3-mvc-hello-world-example/)
+	
+0.2 Xtende Core
+============
 	JSON (http://www.mkyong.com/spring-mvc/spring-3-mvc-and-json-example/)
 	REST (see http://www.mkyong.com/spring-mvc/spring-3-rest-hello-world-example/)
 	Taglib Xtension
