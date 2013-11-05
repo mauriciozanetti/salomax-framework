@@ -36,8 +36,7 @@ public class LoggerFactory {
 	 * @return A java.util.logging.Logger instance
 	 */
 	public static <T> Logger getLogger(Class<T> class1) {
-		// TODO Use spring 
-		return Logger.getLogger(class1.getCanonicalName());
+		return Logger.getLogger(class1.getName());
 	}
 
 }

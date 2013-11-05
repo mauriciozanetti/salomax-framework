@@ -36,11 +36,7 @@ import com.sx.framework.beancontext.BeanContext;
 import com.sx.framework.beancontext.BeanContextConfiguration;
 import com.sx.framework.beancontext.BeanContextFactory;
 import com.sx.framework.beancontext.BeanContextMapping;
-import com.sx.framework.beancontext.GenericBeanContextMapping;
-import com.sx.framework.beancontext.GenericType;
 import com.sx.framework.commons.Str;
-import com.sx.framework.dao.EntityDAO;
-import com.sx.framework.dao.imp.GenericOfyEntityDAO;
 import com.sx.framework.dao.imp.OfyHelper;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;
@@ -65,7 +61,9 @@ public class ServiceTransactionUnitTest {
 	 * LocalServiceTestHelper.
 	 */
 	private final static LocalServiceTestHelper helper =
-		    new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+		    new LocalServiceTestHelper(
+		    		new LocalDatastoreServiceTestConfig()
+		    		.setApplyAllHighRepJobPolicy());
 	
 
 	/**
@@ -125,15 +123,6 @@ public class ServiceTransactionUnitTest {
 				}
 			});
 			
-			beanContext.addContext(new BeanContextConfiguration() {
-				
-				@SuppressWarnings("unchecked")
-				@Override
-				public BeanContextMapping<EntityDAO<Thing>> configureMapping() {
-					return new GenericBeanContextMapping<EntityDAO<Thing>>(new GenericType<EntityDAO<Thing>>() {}, new GenericType<GenericOfyEntityDAO<Thing>>() {});
-				}
-			});
-			
 		}
 	
 	}
@@ -157,7 +146,7 @@ public class ServiceTransactionUnitTest {
 		try {
 			service.testTransaction(thing);
 		} catch(Throwable t) {
-			// Expected
+			t.printStackTrace();
 		}
 		
 		List<Thing> list = service.list(thing);

@@ -20,42 +20,35 @@
  */
 package com.sx.framework.beancontext;
 
-
-
-
 /**
- * TODO comments.
+ * Each bean on context can be mapped through this class.
  * 
- * @author salomax
- *
+ * @author marcos.salomao
  */
 public class BeanContextMapping<T> {
 	
 	/**
-	 * TODO comments.
+	 * Type.
 	 */
 	private Class<T> type;
 	
 	/**
-	 * TODO comments.
+	 * Reference or type implementation.
 	 */
 	private Class<? extends T> reference;
 	
 	/**
-	 * TODO comments.
-	 * 
-	 * @param class1
-	 * @param class2
+	 *Default constructor.
 	 */
 	public BeanContextMapping() {
 		// No implementation
 	}
 	
 	/**
-	 * TODO comments.
+	 * Easy constructor, setting type and reference at once.
 	 * 
-	 * @param class1
-	 * @param class2
+	 * @param type Type
+	 * @param reference Reference or type implementation
 	 */
 	public BeanContextMapping(Class<T> type, Class<? extends T> reference) {
 		setType(type);

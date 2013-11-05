@@ -21,17 +21,17 @@
 package com.sx.framework.beancontext;
 
 /**
- * TODO comments.
+ * Interface proposes a configuration pattern to bean context.
  * 
- * @author salomax
+ * @author marcos.salomao
  */
-public abstract class BeanContextConfiguration {
+public interface BeanContextConfiguration {
 
 	/**
-	 * TODO comments.
+	 * Returns a bean mapping to the context.
 	 * 
-	 * @return
+	 * @return Returns a bean mapping
 	 */
-	public abstract <T> BeanContextMapping<T> configureMapping();
+	public <T> BeanContextMapping<T> configureMapping();
 
 }

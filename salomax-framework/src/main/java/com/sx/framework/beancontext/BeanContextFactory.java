@@ -42,7 +42,9 @@ public class BeanContextFactory {
 	public static BeanContext getInstance() {
 		
 		if (beanContext == null) {
-			// TODO better this
+			// TODO better this. 
+			// Instantiate the class through 
+			// a configuration XML file, for example
 			beanContext = new GuiceBeanContextImp();
 		}
 		

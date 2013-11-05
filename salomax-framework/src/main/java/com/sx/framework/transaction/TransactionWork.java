@@ -21,15 +21,14 @@
 package com.sx.framework.transaction;
 
 /**
- * TODO comments.
- * @author salomax
- *
+ * Something to process in a transactional work.
+ * 
+ * @author marcos.salomao
  */
 public interface TransactionWork<S> {
 	
 	/**
-	 * TODO comments.
-	 * @return
+	 * Run method in a transactional work.
 	 */
 	S run();
 	

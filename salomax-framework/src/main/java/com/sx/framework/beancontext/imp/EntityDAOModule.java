@@ -18,15 +18,27 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.beancontext;
+package com.sx.framework.beancontext.imp;
 
-import com.google.inject.TypeLiteral;
+import com.google.inject.AbstractModule;
+import com.sx.framework.dao.EntityDAO;
+import com.sx.framework.dao.imp.GenericOfyEntityDAO;
 
 /**
- * Type for generic beans.
+ * Guice module to configure EntityDAO pattern.
  * 
  * @author marcos.salomao
  */
-public class GenericType<T> extends TypeLiteral<T> {
+public class EntityDAOModule extends AbstractModule {
+
+	/**
+	 * Bean configuration.
+	 */
+	@Override
+	protected void configure() {
+		
+		bind(EntityDAO.class).to(GenericOfyEntityDAO.class);
+		
+	}
 
 }

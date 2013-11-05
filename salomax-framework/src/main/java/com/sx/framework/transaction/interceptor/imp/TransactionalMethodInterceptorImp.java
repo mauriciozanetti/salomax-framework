@@ -18,38 +18,38 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.transaction.interceptor;
+package com.sx.framework.transaction.interceptor.imp;
 
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
-import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
 import com.sx.framework.commons.Str;
 import com.sx.framework.logging.LoggerFactory;
 import com.sx.framework.transaction.Transaction;
-import com.sx.framework.transaction.TransactionServiceWork;
+import com.sx.framework.transaction.TransactionalServiceWork;
 import com.sx.framework.transaction.TransactionType;
 import com.sx.framework.transaction.TransactionWork;
+import com.sx.framework.transaction.interceptor.TransactionalMethodInterceptor;
 
 /**
  * @author salomax
  *
  */
-public class SimpleTransactionInterceptor implements MethodInterceptor {
+public class TransactionalMethodInterceptorImp implements TransactionalMethodInterceptor {
 
 	/**
 	 * Logger.
 	 */
-	private final static Logger LOGGER = LoggerFactory.getLogger(SimpleTransactionInterceptor.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(TransactionalMethodInterceptorImp.class);
 	
 	/**
 	 * Transaction service.
 	 */
 	@Inject
-	private TransactionServiceWork transactionServiceWork;
+	private TransactionalServiceWork transactionServiceWork;
 
 	/**
 	 * 
@@ -60,7 +60,7 @@ public class SimpleTransactionInterceptor implements MethodInterceptor {
 		Transaction transaction = invocation.getMethod().getAnnotation(Transaction.class);
 		
 		//Default transaction type
-		TransactionType transactionType = TransactionType.SUPPORTS;
+		TransactionType transactionType = TransactionType.NOT_SUPPORTED;
 		
 		if (transaction != null) {
 			
@@ -69,6 +69,9 @@ public class SimpleTransactionInterceptor implements MethodInterceptor {
 			LOGGER.info(Str.format("%s service transaction type applied for %s method", 
 					transactionType, invocation.getMethod().getName()));
 			
+		} else {
+			LOGGER.info(Str.format("Method %s was intercepted in transactional context", 
+					invocation.getMethod().getName()));
 		}
 		
 		return transactionServiceWork.execute(

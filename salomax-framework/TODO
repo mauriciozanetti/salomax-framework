@@ -3,10 +3,10 @@
 OK	Logging
 OK	VO Serialization
 OK	Persistence NoSQL (Objectify)
-	IoD (Guice)
-	AOP (Guice)
-	Transactions (Appengine/Objectify) (commit/rollback)
-	Service Bean (like EJB) 
+OK	IoD (Guice)
+OK	AOP (Guice)
+OK	Transactions (Appengine/Objectify) (commit/rollback)
+OK	Service Bean (like EJB) 
 	Exceptions
 	i18n
 	JAXB

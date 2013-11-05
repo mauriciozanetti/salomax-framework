@@ -21,8 +21,10 @@
 package com.sx.framework.beancontext;
 
 
+
 /**
- *TODO comments.
+ * Interface determines how a bean context must be accessed,
+ * and the beans will be instanced.
  * 
  * @author marcos.salomao
  */
@@ -36,6 +38,14 @@ public interface BeanContext {
 	 */
 	public <T> T getBean(Class<T> class1);
 
+	/**
+	 * Returns bean implementation or reference by class.
+	 * 
+	 * @param genericType generic type reference
+	 * @return Bean implementation
+	 */
+	public <T> T getBean(GenericKey<T> genericType);
+	
 	/**
 	 * Apply other bean context configuration.
 	 * 

@@ -32,11 +32,13 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.TypeLiteral;
+import com.sx.framework.beancontext.BeanContext;
+import com.sx.framework.beancontext.BeanContextConfiguration;
+import com.sx.framework.beancontext.BeanContextFactory;
+import com.sx.framework.beancontext.BeanContextMapping;
+import com.sx.framework.beancontext.GenericBeanContextMapping;
+import com.sx.framework.beancontext.GenericKey;
+import com.sx.framework.beancontext.GenericType;
 import com.sx.framework.dao.EntityDAO;
 import com.sx.framework.dao.imp.GenericOfyEntityDAO;
 import com.sx.framework.dao.imp.OfyHelper;
@@ -76,9 +78,9 @@ public class GenericEntityServiceUnitTest {
 	}
 	
 	/**
-	 * Inject.
+	 * Bean context.
 	 */
-	private static Injector injector;
+	private static BeanContext beanContext;
 	
 	/**
 	 * Before test.
@@ -99,18 +101,36 @@ public class GenericEntityServiceUnitTest {
 			thing.setValue(value);
 		}
 		
-		if (injector == null) {
-			injector = Guice.createInjector(new AbstractModule() {
+		if (beanContext == null) {
+			
+			beanContext = BeanContextFactory.getInstance();
+			
+			beanContext.addContext(new BeanContextConfiguration() {
 				
+				@SuppressWarnings({ "unchecked", "rawtypes" })
 				@Override
-				protected void configure() {
-					bind(new TypeLiteral<EntityService<Thing>>(){}).to(new TypeLiteral<GenericEntityService<Thing>>(){});	
-					bind(new TypeLiteral<EntityDAO<Thing>>(){}).to(new TypeLiteral<GenericOfyEntityDAO<Thing>>() {});	
+				public BeanContextMapping<EntityDAO<Thing>> configureMapping() {
+					return new GenericBeanContextMapping(
+							new GenericType<EntityDAO<Thing>>() {}, 
+							new GenericType<GenericOfyEntityDAO<Thing>>() {});
 				}
 				
 			});
+			
+			beanContext.addContext(new BeanContextConfiguration() {
+				
+				@SuppressWarnings({ "unchecked", "rawtypes" })
+				@Override
+				public BeanContextMapping<EntityService> configureMapping() {
+					return new GenericBeanContextMapping(
+							new GenericType<EntityService<Thing>>() {}, 
+							new GenericType<GenericEntityService<Thing>>() {});
+				}
+				
+			});
+			
 		}
-	
+		
 	}
 	
 	/**
@@ -129,7 +149,8 @@ public class GenericEntityServiceUnitTest {
 		
 		LOGGER.info("Saving Thing entity");
 		
-		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
+		EntityService<Thing> service = beanContext.getBean(
+				new GenericKey<EntityService<Thing>>(){}); 
 
 		thing = service.save(thing);
 		
@@ -152,7 +173,8 @@ public class GenericEntityServiceUnitTest {
 
 		Integer compareValue = thing.getValue();
 
-		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
+		EntityService<Thing> service = beanContext.getBean(
+				new GenericKey<EntityService<Thing>>(){}); 
 		
 		thing = service.load(thing);
 		
@@ -174,7 +196,8 @@ public class GenericEntityServiceUnitTest {
 		
 		LOGGER.info("Listing Thing entity");
 		
-		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
+		EntityService<Thing> service = beanContext.getBean(
+				new GenericKey<EntityService<Thing>>(){}); 
 		
 		List<Thing> list = service.list(thing);
 		
@@ -191,8 +214,9 @@ public class GenericEntityServiceUnitTest {
 	public void testFilterThing() {
 		
 		LOGGER.info("Filtering Thing entity");
-		
-		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
+
+		EntityService<Thing> service = beanContext.getBean(
+				new GenericKey<EntityService<Thing>>(){}); 
 
 		Integer compareValue = thing.getValue();
 		
@@ -216,7 +240,8 @@ public class GenericEntityServiceUnitTest {
 		
 		LOGGER.info("Delete Thing entity");
 		
-		EntityService<Thing> service = injector.getInstance(new Key<EntityService<Thing>>(){});
+		EntityService<Thing> service = beanContext.getBean(
+				new GenericKey<EntityService<Thing>>(){}); 
 		
 		service.delete(thing);
 		

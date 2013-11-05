@@ -20,20 +20,21 @@
  */
 package com.sx.framework.transaction;
 
-
-
 /**
- * TODO comments.
+ * Interface determines how a transactional service method must be executed.
+ * 
+ * This interface is similar with <code>Runnable</code>.
  * 
  * @author salomax
  */
-public interface TransactionServiceWork {
+public interface TransactionalServiceWork {
 
 	/**
-	 * TODO comments
-	 * @param name
-	 * @param transactionWork
-	 * @return
+	 * Transactional execution.
+	 * 
+	 * @param transactionType Transaction type (REQUIRED, SUPPORTS, etc) {@link TransactionType}
+	 * @param transactionWork Transaction work, that really do something
+	 * @return returns the execution result, if there is one
 	 */
 	Object execute(TransactionType transactionType, TransactionWork<Object> transactionWork);
 

@@ -20,13 +20,13 @@
  */
 package com.sx.framework.beancontext;
 
-import com.google.inject.TypeLiteral;
+import com.google.inject.Key;
 
 /**
- * Type for generic beans.
+ * Key reference for generic beans.
  * 
  * @author marcos.salomao
  */
-public class GenericType<T> extends TypeLiteral<T> {
+public class GenericKey<T> extends Key<T> {
 
 }

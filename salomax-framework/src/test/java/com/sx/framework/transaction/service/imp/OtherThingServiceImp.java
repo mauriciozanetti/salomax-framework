@@ -27,7 +27,7 @@ import com.sx.framework.transaction.TransactionType;
 import com.sx.framework.transaction.service.OtherThingService;
 
 /**
- * @author salomax
+ * @author marcos.salomao
  *
  */
 public class OtherThingServiceImp extends GenericEntityService<Thing> implements OtherThingService {
@@ -41,7 +41,7 @@ public class OtherThingServiceImp extends GenericEntityService<Thing> implements
 		save(thing);
 		
 		if (true)
-			throw new RuntimeException();
+			throw new RuntimeException("Something wrong...");
 		
 	}
 

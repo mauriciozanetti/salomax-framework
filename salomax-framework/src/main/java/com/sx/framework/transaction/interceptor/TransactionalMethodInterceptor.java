@@ -18,15 +18,15 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.beancontext;
+package com.sx.framework.transaction.interceptor;
 
-import com.google.inject.TypeLiteral;
+import org.aopalliance.intercept.MethodInterceptor;
 
 /**
- * Type for generic beans.
+ * Transactional method interceptor.
  * 
  * @author marcos.salomao
  */
-public class GenericType<T> extends TypeLiteral<T> {
+public interface TransactionalMethodInterceptor extends MethodInterceptor {
 
 }

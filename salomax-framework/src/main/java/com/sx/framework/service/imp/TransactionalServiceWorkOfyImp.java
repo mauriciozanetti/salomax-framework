@@ -28,24 +28,24 @@ import com.googlecode.objectify.TxnType;
 import com.googlecode.objectify.Work;
 import com.sx.framework.commons.Str;
 import com.sx.framework.logging.LoggerFactory;
-import com.sx.framework.transaction.TransactionServiceWork;
+import com.sx.framework.transaction.TransactionalServiceWork;
 import com.sx.framework.transaction.TransactionType;
 import com.sx.framework.transaction.TransactionWork;
 
 /**
- * TODO comments.
+ * Objectify implementation to <code>TransactionalServiceWork</code> interface.
  * 
- * @author salomax
+ * @author marcos.salomao
  */
-public class TransactionServiceWorkOfyImp implements TransactionServiceWork {
+public class TransactionalServiceWorkOfyImp implements TransactionalServiceWork {
 
 	/**
 	 * Logger.
 	 */
-	private final static Logger LOGGER = LoggerFactory.getLogger(TransactionServiceWorkOfyImp.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(TransactionalServiceWorkOfyImp.class);
 	
 	/**
-	 * TODO comments.
+	 * Execute the objectify implementation to transactional context.
 	 */
 	public Object execute(final TransactionType transactionType, 
 			final TransactionWork<Object> transactionWork) {
@@ -60,7 +60,6 @@ public class TransactionServiceWorkOfyImp implements TransactionServiceWork {
 		            		Object r = transactionWork.run();
 			                return r;
 		            	} catch(Throwable e) {
-		            		ofy().getTransaction().rollback();
 		            		throw new RuntimeException(e);
 		            	}
 		            }

@@ -20,8 +20,6 @@
  */
 package com.sx.framework.beancontext.imp;
 
-import org.aopalliance.intercept.MethodInterceptor;
-
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -31,43 +29,46 @@ import com.sx.framework.dao.EntityDAO;
 import com.sx.framework.dao.imp.GenericOfyEntityDAO;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.service.Service;
-import com.sx.framework.service.imp.TransactionServiceWorkOfyImp;
-import com.sx.framework.transaction.TransactionServiceWork;
-import com.sx.framework.transaction.interceptor.SimpleTransactionInterceptor;
+import com.sx.framework.service.imp.TransactionalServiceWorkOfyImp;
+import com.sx.framework.transaction.TransactionalServiceWork;
+import com.sx.framework.transaction.interceptor.TransactionalMethodInterceptor;
+import com.sx.framework.transaction.interceptor.imp.TransactionalMethodInterceptorImp;
 import com.sx.framework.transaction.service.OtherThingService;
 import com.sx.framework.transaction.service.ThingService;
 import com.sx.framework.transaction.service.imp.OtherThingServiceImp;
 import com.sx.framework.transaction.service.imp.ThingServiceImp;
 
 /**
- * TODO comments.
+ * Configuration module to transactional service methods.
  * 
- * @author salomax
+ * @author marcos.salomao
  */
-public class ServiceTransactionModule extends AbstractModule {
+public class TransactionalServiceModule extends AbstractModule {
 
 	/**
-	 * Configure test transaction module.
+	 * Configure service methods to be able 
+	 * to execute in a transaction context.
 	 */
 	@Override
 	protected void configure() {
 
-		bind(TransactionServiceWork.class).to(TransactionServiceWorkOfyImp.class);		
+		bind(TransactionalServiceWork.class).to(TransactionalServiceWorkOfyImp.class);		
 		bind(ThingService.class).to(ThingServiceImp.class);
 		bind(OtherThingService.class).to(OtherThingServiceImp.class);
 		bind(new TypeLiteral<EntityDAO<Thing>>(){}).to(new TypeLiteral<GenericOfyEntityDAO<Thing>>(){});
 		
 		Injector injector = Guice.createInjector(new AbstractModule() {
+
 			@Override
 			protected void configure() {
-				bind(MethodInterceptor.class).to(SimpleTransactionInterceptor.class);	
-				bind(TransactionServiceWork.class).to(TransactionServiceWorkOfyImp.class);
+				bind(TransactionalMethodInterceptor.class).to(TransactionalMethodInterceptorImp.class);
+				bind(TransactionalServiceWork.class).to(TransactionalServiceWorkOfyImp.class);
 			}
+			
 		});
 		
-		MethodInterceptor interceptor = injector.getInstance(MethodInterceptor.class);
+		TransactionalMethodInterceptor interceptor = injector.getInstance(TransactionalMethodInterceptor.class);
 		bindInterceptor(Matchers.subclassesOf(Service.class), Matchers.any(), interceptor);
-
 	}
 
 }

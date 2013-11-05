@@ -24,7 +24,7 @@ import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.service.EntityService;
 
 /**
- * TODO comments.
+ * Test thing service.
  * 
  * @author salomax
  */

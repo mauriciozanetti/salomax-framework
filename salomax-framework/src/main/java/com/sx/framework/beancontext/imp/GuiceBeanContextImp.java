@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Binding;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -32,11 +33,12 @@ import com.sx.framework.beancontext.BeanContext;
 import com.sx.framework.beancontext.BeanContextConfiguration;
 import com.sx.framework.beancontext.BeanContextMapping;
 import com.sx.framework.beancontext.GenericBeanContextMapping;
+import com.sx.framework.beancontext.GenericKey;
 import com.sx.framework.commons.Str;
 import com.sx.framework.logging.LoggerFactory;
 
 /**
- * TODO Comments.
+ * Guice implementation to bean context.
  * 
  * @author marcos.salomao
  */
@@ -53,6 +55,11 @@ public class GuiceBeanContextImp implements BeanContext {
 	private static Injector injector;
 	
 	/**
+	 * Dirty injector instance.
+	 */
+	private static boolean isDirty;
+	
+	/**
 	 * Guice modules.
 	 */
 	private static List<Module> modules = new ArrayList<Module>();
@@ -62,7 +69,8 @@ public class GuiceBeanContextImp implements BeanContext {
 	 */
 	public GuiceBeanContextImp() {
 		modules.add(new StandardModule());
-		modules.add(new ServiceTransactionModule());
+		modules.add(new TransactionalServiceModule());
+		modules.add(new EntityDAOModule());
 	}
 	
 	/**
@@ -75,9 +83,23 @@ public class GuiceBeanContextImp implements BeanContext {
 	public <T> T getBean(Class<T> class1) {
 		return getInjector().getInstance(class1);
 	}
+	
+	/**
+	 * Returns bean implementation or reference by class.
+	 * 
+	 * @param genericType generic type reference
+	 * @return Bean implementation
+	 */
+	@Override
+	public <T> T getBean(GenericKey<T> genericType) {
+		return getInjector().getInstance(genericType);
+	}
 
 	/**
-	 * TODO comments.
+	 * Add a new context configuration to bean context.
+	 * 
+	 * Even a bean context has been created, the next time 
+	 * getBean() is called, the context will be reloaded.
 	 */
 	@Override
 	@SuppressWarnings("rawtypes")
@@ -88,7 +110,7 @@ public class GuiceBeanContextImp implements BeanContext {
 		modules.add(new AbstractModule() {
 
 				/**
-				 * TODO Comments.
+				 * Configure a bean lately.
 				 */
 				@SuppressWarnings("unchecked")
 				@Override
@@ -96,17 +118,19 @@ public class GuiceBeanContextImp implements BeanContext {
 					
 					if (mapping instanceof GenericBeanContextMapping) {
 
-						LOGGER.info(Str.format("Binding generic type."));
-						
 						GenericBeanContextMapping genericMapping = (GenericBeanContextMapping) mapping;
+
+						LOGGER.info(Str.format("Binding generic type %s to %s",
+								genericMapping.getGenericType().getType(),
+								genericMapping.getGenericReference().getType()));
 						
 						bind(genericMapping.getGenericType()).to(genericMapping.getGenericReference());
 						
 					} else {
 
 						LOGGER.info(Str.format("Binding type %s to %s", 
-								mapping.getType().getCanonicalName(),
-								mapping.getReference().getCanonicalName()));
+								mapping.getType().getName(),
+								mapping.getReference().getName()));
 						
 						bind(mapping.getType()).to(mapping.getReference());
 
@@ -115,18 +139,50 @@ public class GuiceBeanContextImp implements BeanContext {
 				}
 			});
 
+		// force reload injector.
+		setDirty(true);
+
 	}
 
 	/**
-	 * TODO Comments.
+	 * Create a Guice injector if there is no one,
+	 * or returns the existent.
 	 * 
 	 * @return the injector
 	 */
 	protected static Injector getInjector() {
-		if (injector == null) {
+		
+		LOGGER.info("Creating Guice injector");
+		
+		if (injector == null || isDirty) {
 			injector = Guice.createInjector(modules);
+			
+			for (Binding<?> binding : injector.getBindings().values()) {
+				LOGGER.info(Str.format("Binding type %s to %s", 
+						binding.getKey().getTypeLiteral(),
+						binding.getProvider().get()));
+			}
+			
 		}
+		
+		// actual injector instance is valid
+		setDirty(false);
+		
 		return injector;
+	}
+
+	/**
+	 * @return the isDirty
+	 */
+	public static boolean isDirty() {
+		return isDirty;
+	}
+
+	/**
+	 * @param isDirty the isDirty to set
+	 */
+	public static void setDirty(boolean isDirty) {
+		GuiceBeanContextImp.isDirty = isDirty;
 	}
 
 }

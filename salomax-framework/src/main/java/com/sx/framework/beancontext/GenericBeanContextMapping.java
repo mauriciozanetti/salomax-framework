@@ -21,27 +21,27 @@
 package com.sx.framework.beancontext;
 
 /**
- * TODO comments.
+ * Some bean have generic types and must a specified handling.
  * 
  * @author marcos.salomao
  */
 public class GenericBeanContextMapping<T> extends BeanContextMapping<T> {
 	
 	/**
-	 * TODO comments.
+	 * Generic type.
 	 */
 	private GenericType<T> type;
 	
 	/**
-	 * TODO comments.
+	 * Generic reference or generic type implementation..
 	 */
 	private GenericType<? extends T> reference;
 	
 	/**
-	 * TODO comments.
+	 * Easy constructor, setting type and reference at once.
 	 * 
-	 * @param type
-	 * @param reference
+	 * @param type Generic type
+	 * @param reference Generic reference or generic type implementation
 	 */
 	public GenericBeanContextMapping(GenericType<T> type, GenericType<? extends T> reference) {
 		setGenericType(type);

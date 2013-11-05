@@ -30,8 +30,7 @@ import com.sx.framework.transaction.service.OtherThingService;
 import com.sx.framework.transaction.service.ThingService;
 
 /**
- * @author salomax
- *
+ * @author marcos.salomao
  */
 public class ThingServiceImp extends GenericEntityService<Thing> implements ThingService {
 	
@@ -49,8 +48,10 @@ public class ThingServiceImp extends GenericEntityService<Thing> implements Thin
 		
 		save(thing);
 		
-		otherThingService.testInnerTransaction(new Thing());
+		list(thing).size();
 		
+		otherThingService.testInnerTransaction(new Thing());
+
 	}
 
 }
