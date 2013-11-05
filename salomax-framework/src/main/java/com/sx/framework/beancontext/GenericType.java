@@ -18,35 +18,15 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.vo;
+package com.sx.framework.beancontext;
 
-import com.sx.framework.beancontext.BeanContextFactory;
-import com.sx.framework.serialization.VOSerializer;
+import com.google.inject.TypeLiteral;
 
 /**
- * Value object pattern.
+ * TODO comments.
  * 
  * @author marcos.salomao
  */
-public class ValueObject {
+public class GenericType<T> extends TypeLiteral<T> {
 
-	/**
-	 * Value object to String.
-	 * @return Value object to String
-	 */
-	@Override
-	public String toString() {
-		return serialize();
-	}
-
-	/**
-	 * Serializes value object into String.
-	 * @return Value object serialized
-	 */
-	public String serialize() {
-		VOSerializer serializer = BeanContextFactory
-				.getInstance().getBean(VOSerializer.class);
-		return serializer.serialize(this);
-	}
-	
 }

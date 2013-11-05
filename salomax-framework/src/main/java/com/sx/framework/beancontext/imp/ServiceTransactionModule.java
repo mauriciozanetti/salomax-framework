@@ -18,7 +18,7 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.transaction.binding;
+package com.sx.framework.beancontext.imp;
 
 import org.aopalliance.intercept.MethodInterceptor;
 
@@ -40,10 +40,11 @@ import com.sx.framework.transaction.service.imp.OtherThingServiceImp;
 import com.sx.framework.transaction.service.imp.ThingServiceImp;
 
 /**
+ * TODO comments.
+ * 
  * @author salomax
- *
  */
-public class TransactionModule extends AbstractModule {
+public class ServiceTransactionModule extends AbstractModule {
 
 	/**
 	 * Configure test transaction module.

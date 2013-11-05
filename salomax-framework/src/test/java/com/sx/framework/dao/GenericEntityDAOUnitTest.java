@@ -32,12 +32,8 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.google.inject.TypeLiteral;
-import com.sx.framework.context.BeanContext;
-import com.sx.framework.context.BeanContextConfiguration;
-import com.sx.framework.context.BeanContextFactory;
-import com.sx.framework.context.BeanContextMapping;
-import com.sx.framework.dao.imp.GenericOfyEntityDAO;
+import com.sx.framework.beancontext.BeanContext;
+import com.sx.framework.beancontext.BeanContextFactory;
 import com.sx.framework.dao.imp.OfyHelper;
 import com.sx.framework.dao.utils.Filter;
 import com.sx.framework.entity.ofy.Thing;
@@ -67,7 +63,7 @@ public class GenericEntityDAOUnitTest {
 	private static Thing thing;
 	
 	/**
-	 * Inject.
+	 * Bean context.
 	 */
 	private static BeanContext beanContext;
 	
@@ -81,7 +77,6 @@ public class GenericEntityDAOUnitTest {
 	/**
 	 * Before test.
 	 */
-	@SuppressWarnings("rawtypes")
 	@BeforeClass
 	public static void beforeTest() {
 	
@@ -98,18 +93,7 @@ public class GenericEntityDAOUnitTest {
 		}
 		
 		if (beanContext == null) {
-			
 			beanContext = BeanContextFactory.getInstance();
-
-			beanContext.addContext(new BeanContextConfiguration() {
-				
-				@Override
-				public BeanContextMapping configureMapping() {
-					return new BeanContextMapping(new TypeLiteral<EntityDAO<Thing>>(){}, new TypeLiteral<GenericOfyEntityDAO<Thing>>(){});
-				}
-				
-			});
-
 		}
 		
 	}

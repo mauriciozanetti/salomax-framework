@@ -18,20 +18,35 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context;
+package com.sx.framework.beancontext;
+
+import com.sx.framework.beancontext.imp.GuiceBeanContextImp;
 
 /**
- * TODO comments.
+ * Factory class for bean context.
  * 
  * @author salomax
  */
-public abstract class BeanContextConfiguration {
+public class BeanContextFactory {
 
 	/**
-	 * TODO comments.
-	 * 
-	 * @return
+	 * Bean context singleton pattern.
 	 */
-	public abstract BeanContextMapping configureMapping();
+	private static BeanContext beanContext;
+	
+	/**
+	 * Returns bean context implementation.
+	 * 
+	 * @return bean context implementation
+	 */
+	public static BeanContext getInstance() {
+		
+		if (beanContext == null) {
+			// TODO better this
+			beanContext = new GuiceBeanContextImp();
+		}
+		
+		return beanContext;
+	}
 
 }

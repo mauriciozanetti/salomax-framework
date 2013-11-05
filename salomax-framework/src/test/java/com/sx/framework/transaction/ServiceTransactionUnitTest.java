@@ -32,14 +32,22 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.sx.framework.beancontext.BeanContext;
+import com.sx.framework.beancontext.BeanContextConfiguration;
+import com.sx.framework.beancontext.BeanContextFactory;
+import com.sx.framework.beancontext.BeanContextMapping;
+import com.sx.framework.beancontext.GenericBeanContextMapping;
+import com.sx.framework.beancontext.GenericType;
 import com.sx.framework.commons.Str;
+import com.sx.framework.dao.EntityDAO;
+import com.sx.framework.dao.imp.GenericOfyEntityDAO;
 import com.sx.framework.dao.imp.OfyHelper;
 import com.sx.framework.entity.ofy.Thing;
 import com.sx.framework.logging.LoggerFactory;
-import com.sx.framework.transaction.binding.TransactionModule;
+import com.sx.framework.transaction.service.OtherThingService;
 import com.sx.framework.transaction.service.ThingService;
+import com.sx.framework.transaction.service.imp.OtherThingServiceImp;
+import com.sx.framework.transaction.service.imp.ThingServiceImp;
 
 /**
  * Service transaction context unit test.
@@ -66,9 +74,9 @@ public class ServiceTransactionUnitTest {
 	private static Thing thing;
 	
 	/**
-	 * Inject.
+	 * Bean context.
 	 */
-	private static Injector injector;
+	private static BeanContext beanContext;
 	
 	/**
 	 * Static block to register.
@@ -87,16 +95,45 @@ public class ServiceTransactionUnitTest {
 		
 		helper.setUp();
 		
-		if (injector == null) {
-			injector = Guice.createInjector(new TransactionModule());
-		}
-		
 		if (thing == null) {
 			LOGGER.info("Creating a new Thing");
 			thing = new Thing();
 
 			Integer value = new Random().nextInt(1000);
 			thing.setValue(value);
+		}
+		
+		if (beanContext == null) {
+			
+			beanContext = BeanContextFactory.getInstance();
+			
+			beanContext.addContext(new BeanContextConfiguration() {
+				
+				@SuppressWarnings("unchecked")
+				@Override
+				public BeanContextMapping<ThingService> configureMapping() {
+					return new BeanContextMapping<ThingService>(ThingService.class, ThingServiceImp.class);
+				}
+			});
+			
+			beanContext.addContext(new BeanContextConfiguration() {
+				
+				@SuppressWarnings("unchecked")
+				@Override
+				public BeanContextMapping<OtherThingService> configureMapping() {
+					return new BeanContextMapping<OtherThingService>(OtherThingService.class, OtherThingServiceImp.class);
+				}
+			});
+			
+			beanContext.addContext(new BeanContextConfiguration() {
+				
+				@SuppressWarnings("unchecked")
+				@Override
+				public BeanContextMapping<EntityDAO<Thing>> configureMapping() {
+					return new GenericBeanContextMapping<EntityDAO<Thing>>(new GenericType<EntityDAO<Thing>>() {}, new GenericType<GenericOfyEntityDAO<Thing>>() {});
+				}
+			});
+			
 		}
 	
 	}
@@ -115,7 +152,7 @@ public class ServiceTransactionUnitTest {
 	@Test
 	public void testSaveThing() {
 		
-		ThingService service = injector.getInstance(ThingService.class);
+		ThingService service = beanContext.getBean(ThingService.class);
 		
 		try {
 			service.testTransaction(thing);

@@ -18,25 +18,29 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context.imp;
+package com.sx.framework.beancontext;
 
-import com.google.inject.AbstractModule;
-import com.sx.framework.serialization.VOSerializer;
-import com.sx.framework.serialization.imp.JSONVOSerializerImp;
 
 /**
- * Standard bean configuration.
+ *TODO comments.
  * 
- * @author salomax
+ * @author marcos.salomao
  */
-public class StandardModule extends AbstractModule {
+public interface BeanContext {
+	
+	/**
+	 * Returns bean implementation or reference by class.
+	 * 
+	 * @param class1 class type reference
+	 * @return Bean implementation
+	 */
+	public <T> T getBean(Class<T> class1);
 
 	/**
-	 * Configure beans.
+	 * Apply other bean context configuration.
+	 * 
+	 * @param beanContextConfiguration bean context configuration
 	 */
-	@Override
-	protected void configure() {
-		bind(VOSerializer.class).to(JSONVOSerializerImp.class);
-	}
+	public void addContext(BeanContextConfiguration beanContextConfiguration);
 
 }

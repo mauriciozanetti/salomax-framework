@@ -18,39 +18,76 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.transaction.service.imp;
+package com.sx.framework.beancontext;
 
-import javax.inject.Inject;
 
-import com.sx.framework.entity.ofy.Thing;
-import com.sx.framework.service.imp.GenericEntityService;
-import com.sx.framework.transaction.Transaction;
-import com.sx.framework.transaction.TransactionType;
-import com.sx.framework.transaction.service.OtherThingService;
-import com.sx.framework.transaction.service.ThingService;
+
 
 /**
+ * TODO comments.
+ * 
  * @author salomax
  *
  */
-public class ThingServiceImp extends GenericEntityService<Thing> implements ThingService {
+public class BeanContextMapping<T> {
 	
 	/**
-	 * 
+	 * TODO comments.
 	 */
-	@Inject
-	private OtherThingService otherThingService;
-
+	private Class<T> type;
+	
 	/**
-	 * Transactional method.
+	 * TODO comments.
 	 */
-	@Transaction(type=TransactionType.REQUIRED)
-	public void testTransaction(Thing thing) {
-		
-		save(thing);
-		
-		otherThingService.testInnerTransaction(new Thing());
-		
+	private Class<? extends T> reference;
+	
+	/**
+	 * TODO comments.
+	 * 
+	 * @param class1
+	 * @param class2
+	 */
+	public BeanContextMapping() {
+		// No implementation
+	}
+	
+	/**
+	 * TODO comments.
+	 * 
+	 * @param class1
+	 * @param class2
+	 */
+	public BeanContextMapping(Class<T> type, Class<? extends T> reference) {
+		setType(type);
+		setReference(reference);
+	}
+	
+	/**
+	 * @return the type
+	 */
+	public Class<T> getType() {
+		return type;
 	}
 
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(Class<T> type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the reference
+	 */
+	public Class<?> getReference() {
+		return reference;
+	}
+
+	/**
+	 * @param reference the reference to set
+	 */
+	public void setReference(Class<? extends T> reference) {
+		this.reference = reference;
+	}
+	
 }

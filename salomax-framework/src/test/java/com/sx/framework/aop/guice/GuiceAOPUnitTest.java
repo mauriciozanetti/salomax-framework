@@ -24,7 +24,6 @@ import org.junit.Test;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.sx.framework.context.BeanContext;
 
 /**
  *Guice AOP unit test.

@@ -18,17 +18,21 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context.imp;
+package com.sx.framework.beancontext.imp;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.sx.framework.beancontext.BeanContext;
+import com.sx.framework.beancontext.BeanContextConfiguration;
+import com.sx.framework.beancontext.BeanContextMapping;
+import com.sx.framework.beancontext.GenericBeanContextMapping;
 import com.sx.framework.commons.Str;
-import com.sx.framework.context.BeanContext;
-import com.sx.framework.context.BeanContextConfiguration;
-import com.sx.framework.context.BeanContextMapping;
 import com.sx.framework.logging.LoggerFactory;
 
 /**
@@ -49,6 +53,19 @@ public class GuiceBeanContextImp implements BeanContext {
 	private static Injector injector;
 	
 	/**
+	 * Guice modules.
+	 */
+	private static List<Module> modules = new ArrayList<Module>();
+	
+	/**
+	 * Default constructor.
+	 */
+	public GuiceBeanContextImp() {
+		modules.add(new StandardModule());
+		modules.add(new ServiceTransactionModule());
+	}
+	
+	/**
 	 * Returns bean implementation or reference by class.
 	 * 
 	 * @param class1 class type reference
@@ -63,25 +80,40 @@ public class GuiceBeanContextImp implements BeanContext {
 	 * TODO comments.
 	 */
 	@Override
+	@SuppressWarnings("rawtypes")
 	public void addContext(BeanContextConfiguration beanContextConfiguration) {
 		
 		final BeanContextMapping mapping = beanContextConfiguration.configureMapping();
 		
-		if (!getInjector().getAllBindings().containsKey(mapping.getType())) {
-			getInjector().createChildInjector(new AbstractModule() {
+		modules.add(new AbstractModule() {
 
 				/**
 				 * TODO Comments.
 				 */
+				@SuppressWarnings("unchecked")
 				@Override
 				protected void configure() {
-					LOGGER.info(Str.format("Binding type %s to %s", 
-							mapping.getType().getCanonicalName(),
-							mapping.getReference().getCanonicalName()));
-					bind(mapping.getType()).to(mapping.getReference());
+					
+					if (mapping instanceof GenericBeanContextMapping) {
+
+						LOGGER.info(Str.format("Binding generic type."));
+						
+						GenericBeanContextMapping genericMapping = (GenericBeanContextMapping) mapping;
+						
+						bind(genericMapping.getGenericType()).to(genericMapping.getGenericReference());
+						
+					} else {
+
+						LOGGER.info(Str.format("Binding type %s to %s", 
+								mapping.getType().getCanonicalName(),
+								mapping.getReference().getCanonicalName()));
+						
+						bind(mapping.getType()).to(mapping.getReference());
+
+					}
+					
 				}
 			});
-		}
 
 	}
 
@@ -92,7 +124,7 @@ public class GuiceBeanContextImp implements BeanContext {
 	 */
 	protected static Injector getInjector() {
 		if (injector == null) {
-			injector = Guice.createInjector(new StandardModule());
+			injector = Guice.createInjector(modules);
 		}
 		return injector;
 	}

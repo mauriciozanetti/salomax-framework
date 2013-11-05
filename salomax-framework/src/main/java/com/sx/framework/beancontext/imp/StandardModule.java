@@ -18,64 +18,31 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context;
+package com.sx.framework.beancontext.imp;
 
+import com.google.inject.AbstractModule;
+import com.sx.framework.dao.EntityDAO;
+import com.sx.framework.dao.imp.GenericOfyEntityDAO;
+import com.sx.framework.serialization.VOSerializer;
+import com.sx.framework.serialization.imp.JSONVOSerializerImp;
 
 /**
- * TODO comments.
+ * Standard bean configuration.
  * 
  * @author salomax
- *
  */
-public class BeanContextMapping {
+public class StandardModule extends AbstractModule {
+
+	/**
+	 * Configure beans.
+	 */
+	@Override
+	protected void configure() {
+		
+		bind(VOSerializer.class).to(JSONVOSerializerImp.class);
+		
+		bind(EntityDAO.class).to(GenericOfyEntityDAO.class);
 	
-	/**
-	 * TODO comments.
-	 */
-	private Class<?> type;
-	
-	/**
-	 * TODO comments.
-	 */
-	private Class<?> reference;
-
-	/**
-	 * TODO comments.
-	 * 
-	 * @param class1
-	 * @param class2
-	 */
-	public BeanContextMapping(Class<?> type, Class<?> reference) {
-		setType(type);
-		setReference(reference);
-	}
-
-	/**
-	 * @return the type
-	 */
-	public Class<?> getType() {
-		return type;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(Class<?> type) {
-		this.type = type;
-	}
-
-	/**
-	 * @return the reference
-	 */
-	public Class<?> getReference() {
-		return reference;
-	}
-
-	/**
-	 * @param reference the reference to set
-	 */
-	public void setReference(Class<?> reference) {
-		this.reference = reference;
 	}
 
 }
