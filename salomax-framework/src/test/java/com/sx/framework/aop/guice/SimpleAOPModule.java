@@ -18,29 +18,31 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context;
+package com.sx.framework.aop.guice;
 
+import org.aopalliance.intercept.MethodInterceptor;
+
+import com.google.inject.AbstractModule;
+import com.google.inject.matcher.Matchers;
 
 /**
- *TODO comments.
- * 
- * @author marcos.salomao
+ * @author salomax
+ *
  */
-public interface BeanContext {
-	
-	/**
-	 * Returns bean implementation or reference by class.
-	 * 
-	 * @param class1 class type reference
-	 * @return Bean implementation
-	 */
-	public <T> T getBean(Class<T> class1);
+public class SimpleAOPModule extends AbstractModule {
 
 	/**
-	 * Apply other bean context configuration.
 	 * 
-	 * @param beanContextConfiguration bean context configuration
 	 */
-	public void addContext(BeanContextConfiguration beanContextConfiguration);
+	@Override
+	protected void configure() {
+		
+		bind(A.class).to(AImp.class);
+		bind(B.class).to(BImp.class);
+		
+		MethodInterceptor inteceptor = new SimpleInterceptor();
+		bindInterceptor(Matchers.any(), Matchers.any(), inteceptor);
+
+	}
 
 }

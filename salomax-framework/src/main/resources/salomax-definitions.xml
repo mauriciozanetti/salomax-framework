@@ -1,0 +1,10 @@
+<salomax-definitions>
+
+	<bean-context name="standard">
+		<bean>
+			<interface>com.sx.framework.dao.EntityDAO</interface>
+			<implementation>com.sx.framework.dao.imp.bean-context</implementation>
+		</bean>
+	</bean-context>
+
+</salomax-definitions>

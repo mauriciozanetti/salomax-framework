@@ -18,29 +18,39 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context;
+package com.sx.framework.aop.guice;
+
+import com.google.inject.Inject;
 
 
 /**
- *TODO comments.
- * 
- * @author marcos.salomao
+ *
  */
-public interface BeanContext {
+public class AImp implements A {
 	
 	/**
-	 * Returns bean implementation or reference by class.
 	 * 
-	 * @param class1 class type reference
-	 * @return Bean implementation
 	 */
-	public <T> T getBean(Class<T> class1);
+	@Inject
+	private B b;
 
 	/**
-	 * Apply other bean context configuration.
 	 * 
-	 * @param beanContextConfiguration bean context configuration
 	 */
-	public void addContext(BeanContextConfiguration beanContextConfiguration);
+	@Override
+	public void executeA() {
+		System.out.println("Running A.executeA()");
+		
+		this.executeA1();
+		
+		b.executeB();
+		
+	}
+
+	@Override
+	public void executeA1() {
+		System.out.println("Running A.executeA1()");
+		
+	}
 
 }

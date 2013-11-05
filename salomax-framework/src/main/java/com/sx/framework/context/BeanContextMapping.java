@@ -22,25 +22,60 @@ package com.sx.framework.context;
 
 
 /**
- *TODO comments.
+ * TODO comments.
  * 
- * @author marcos.salomao
+ * @author salomax
+ *
  */
-public interface BeanContext {
+public class BeanContextMapping {
 	
 	/**
-	 * Returns bean implementation or reference by class.
-	 * 
-	 * @param class1 class type reference
-	 * @return Bean implementation
+	 * TODO comments.
 	 */
-	public <T> T getBean(Class<T> class1);
+	private Class<?> type;
+	
+	/**
+	 * TODO comments.
+	 */
+	private Class<?> reference;
 
 	/**
-	 * Apply other bean context configuration.
+	 * TODO comments.
 	 * 
-	 * @param beanContextConfiguration bean context configuration
+	 * @param class1
+	 * @param class2
 	 */
-	public void addContext(BeanContextConfiguration beanContextConfiguration);
+	public BeanContextMapping(Class<?> type, Class<?> reference) {
+		setType(type);
+		setReference(reference);
+	}
+
+	/**
+	 * @return the type
+	 */
+	public Class<?> getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(Class<?> type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the reference
+	 */
+	public Class<?> getReference() {
+		return reference;
+	}
+
+	/**
+	 * @param reference the reference to set
+	 */
+	public void setReference(Class<?> reference) {
+		this.reference = reference;
+	}
 
 }

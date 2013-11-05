@@ -18,29 +18,21 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context;
+package com.sx.framework.transaction.service;
 
+import com.sx.framework.entity.ofy.Thing;
+import com.sx.framework.service.EntityService;
 
 /**
- *TODO comments.
+ * Other thing service.
  * 
- * @author marcos.salomao
+ * @author salomax
  */
-public interface BeanContext {
+public interface OtherThingService extends EntityService<Thing> {
 	
 	/**
-	 * Returns bean implementation or reference by class.
-	 * 
-	 * @param class1 class type reference
-	 * @return Bean implementation
+	 * Transactional method.
 	 */
-	public <T> T getBean(Class<T> class1);
-
-	/**
-	 * Apply other bean context configuration.
-	 * 
-	 * @param beanContextConfiguration bean context configuration
-	 */
-	public void addContext(BeanContextConfiguration beanContextConfiguration);
-
+	public void testInnerTransaction(Thing thing);
+	
 }

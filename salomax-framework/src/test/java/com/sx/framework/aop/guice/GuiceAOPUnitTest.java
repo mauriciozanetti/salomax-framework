@@ -18,29 +18,33 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context;
+package com.sx.framework.aop.guice;
 
+import org.junit.Test;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.sx.framework.context.BeanContext;
 
 /**
- *TODO comments.
- * 
- * @author marcos.salomao
+ *Guice AOP unit test.
  */
-public interface BeanContext {
+public class GuiceAOPUnitTest {
 	
 	/**
-	 * Returns bean implementation or reference by class.
-	 * 
-	 * @param class1 class type reference
-	 * @return Bean implementation
+	 * test simple aspect.
 	 */
-	public <T> T getBean(Class<T> class1);
-
-	/**
-	 * Apply other bean context configuration.
-	 * 
-	 * @param beanContextConfiguration bean context configuration
-	 */
-	public void addContext(BeanContextConfiguration beanContextConfiguration);
+	@Test
+	public void testAspect() {
+		
+		System.out.println("Running AopUnitTest.testAspect()");
+		
+		Injector injector = Guice.createInjector(new SimpleAOPModule());
+				 
+		A a = injector.getInstance(A.class);
+		
+		a.executeA();
+		
+	}
 
 }

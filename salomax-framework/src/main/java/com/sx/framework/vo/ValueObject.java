@@ -20,7 +20,7 @@
  */
 package com.sx.framework.vo;
 
-import com.sx.framework.context.BeanContext;
+import com.sx.framework.context.BeanContextFactory;
 import com.sx.framework.serialization.VOSerializer;
 
 /**
@@ -44,7 +44,8 @@ public class ValueObject {
 	 * @return Value object serialized
 	 */
 	public String serialize() {
-		VOSerializer serializer = BeanContext.getBean(VOSerializer.class);
+		VOSerializer serializer = BeanContextFactory
+				.getInstance().getBean(VOSerializer.class);
 		return serializer.serialize(this);
 	}
 	

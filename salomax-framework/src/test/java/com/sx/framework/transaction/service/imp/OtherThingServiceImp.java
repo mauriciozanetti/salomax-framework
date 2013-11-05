@@ -18,29 +18,31 @@
  * junto com este programa, se não, escreva para a Fundação do Software
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package com.sx.framework.context;
+package com.sx.framework.transaction.service.imp;
 
+import com.sx.framework.entity.ofy.Thing;
+import com.sx.framework.service.imp.GenericEntityService;
+import com.sx.framework.transaction.Transaction;
+import com.sx.framework.transaction.TransactionType;
+import com.sx.framework.transaction.service.OtherThingService;
 
 /**
- *TODO comments.
- * 
- * @author marcos.salomao
+ * @author salomax
+ *
  */
-public interface BeanContext {
+public class OtherThingServiceImp extends GenericEntityService<Thing> implements OtherThingService {
 	
 	/**
-	 * Returns bean implementation or reference by class.
-	 * 
-	 * @param class1 class type reference
-	 * @return Bean implementation
+	 * Transactional method.
 	 */
-	public <T> T getBean(Class<T> class1);
-
-	/**
-	 * Apply other bean context configuration.
-	 * 
-	 * @param beanContextConfiguration bean context configuration
-	 */
-	public void addContext(BeanContextConfiguration beanContextConfiguration);
+	@Transaction(type=TransactionType.REQUIRED)
+	public void testInnerTransaction(Thing thing) {
+		
+		save(thing);
+		
+		if (true)
+			throw new RuntimeException();
+		
+	}
 
 }

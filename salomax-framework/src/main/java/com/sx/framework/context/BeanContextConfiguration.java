@@ -20,27 +20,18 @@
  */
 package com.sx.framework.context;
 
-
 /**
- *TODO comments.
+ * TODO comments.
  * 
- * @author marcos.salomao
+ * @author salomax
  */
-public interface BeanContext {
-	
-	/**
-	 * Returns bean implementation or reference by class.
-	 * 
-	 * @param class1 class type reference
-	 * @return Bean implementation
-	 */
-	public <T> T getBean(Class<T> class1);
+public abstract class BeanContextConfiguration {
 
 	/**
-	 * Apply other bean context configuration.
+	 * TODO comments.
 	 * 
-	 * @param beanContextConfiguration bean context configuration
+	 * @return
 	 */
-	public void addContext(BeanContextConfiguration beanContextConfiguration);
+	public abstract BeanContextMapping configureMapping();
 
 }

@@ -20,27 +20,33 @@
  */
 package com.sx.framework.context;
 
+import com.sx.framework.context.imp.GuiceBeanContextImp;
 
 /**
- *TODO comments.
+ * Factory class for bean context.
  * 
- * @author marcos.salomao
+ * @author salomax
  */
-public interface BeanContext {
-	
-	/**
-	 * Returns bean implementation or reference by class.
-	 * 
-	 * @param class1 class type reference
-	 * @return Bean implementation
-	 */
-	public <T> T getBean(Class<T> class1);
+public class BeanContextFactory {
 
 	/**
-	 * Apply other bean context configuration.
-	 * 
-	 * @param beanContextConfiguration bean context configuration
+	 * Bean context singleton pattern.
 	 */
-	public void addContext(BeanContextConfiguration beanContextConfiguration);
+	private static BeanContext beanContext;
+	
+	/**
+	 * Returns bean context implementation.
+	 * 
+	 * @return bean context implementation
+	 */
+	public static BeanContext getInstance() {
+		
+		if (beanContext == null) {
+			// TODO better this
+			beanContext = new GuiceBeanContextImp();
+		}
+		
+		return beanContext;
+	}
 
 }
