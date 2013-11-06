@@ -63,8 +63,8 @@ public class GenericEntityServiceUnitTest {
 	/**
 	 * LocalServiceTestHelper.
 	 */
-	private final static LocalServiceTestHelper helper =
-		    new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	private final static LocalServiceTestHelper helper = new LocalServiceTestHelper(
+			new LocalDatastoreServiceTestConfig().setApplyAllHighRepJobPolicy());
 
 	/**
 	 * Thing entity test.
